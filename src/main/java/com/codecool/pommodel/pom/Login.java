@@ -1,6 +1,5 @@
 package com.codecool.pommodel.pom;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,7 +40,7 @@ public class Login {
     }
 
     private void navigateToLogin() {
-        driver.navigate().to("https://jira.codecool.codecanvas.hu/");
+        driver.navigate().to("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
     }
     
     private void setUserName(String name) {
