@@ -26,8 +26,8 @@ public class Login {
 
     @FindBy(id = "captchaimg")
     WebElement captcha;
-
-
+    
+    
     public Login(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 5);
