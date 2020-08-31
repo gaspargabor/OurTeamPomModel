@@ -1,4 +1,5 @@
 import com.codecool.pommodel.pom.Login;
+import com.codecool.pommodel.pom.MainPage;
 import com.codecool.pommodel.pom.UserProfile;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -44,6 +45,8 @@ public class TestCases {
         login.login(System.getenv("name"), System.getenv("pass"));
         UserProfile userProfile = new UserProfile(driver);
         assertEquals(System.getenv("name"), userProfile.getUserName().trim());
+        MainPage mainPage = new MainPage(driver);
+        mainPage.logOut();
     }
 
     @Test
@@ -51,6 +54,22 @@ public class TestCases {
         Login login = new Login(driver);
         login.login("TestUser123", System.getenv("pass"));
         assertTrue(login.errorMessage());
+    }
+
+    @Test
+    public void loginWithInvalidPassword(){
+        Login login = new Login(driver);
+        login.login(System.getenv("name"), "TestPassword123");
+        assertTrue(login.errorMessage());
+    }
+
+    @Test
+    public void captchaIsShown(){
+        Login login = new Login(driver);
+        login.login(System.getenv("name"), "TestPassword123");
+        login.login(System.getenv("name"), "TestPassword123");
+        login.login(System.getenv("name"), "TestPassword123");
+        assertTrue(login.captcha());
     }
     
     @AfterAll

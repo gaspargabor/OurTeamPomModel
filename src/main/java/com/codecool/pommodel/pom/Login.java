@@ -24,8 +24,10 @@ public class Login {
     @FindBy(id = "usernameerror")
     WebElement errorMessage;
 
+    @FindBy(id = "captchaimg")
+    WebElement captcha;
 
-    
+
     public Login(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 5);
@@ -59,4 +61,10 @@ public class Login {
         wait.until(ExpectedConditions.visibilityOf(errorMessage));
         return errorMessage.isDisplayed();
     }
+
+    public boolean captcha(){
+        wait.until(ExpectedConditions.visibilityOf(captcha));
+        return captcha.isDisplayed();
+    }
+
 }
