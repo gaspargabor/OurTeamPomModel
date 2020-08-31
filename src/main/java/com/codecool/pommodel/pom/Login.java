@@ -1,9 +1,11 @@
 package com.codecool.pommodel.pom;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Login {
@@ -17,8 +19,13 @@ public class Login {
     @FindBy(xpath = "//*[@id='login-form-password']")
     WebElement userPass;
     
-    @FindBy(xpath = "//*[@id='login-form-submit']")
+    @FindBy(xpath = "//*[@id='login']")
     WebElement submitBtn;
+
+    @FindBy(id = "usernameerror")
+    WebElement errorMessage;
+
+
     
     public Login(WebDriver driver) {
         this.driver = driver;
@@ -34,7 +41,7 @@ public class Login {
     }
 
     private void navigateToLogin() {
-        driver.navigate().to("https://jira.codecool.codecanvas.hu/login.jsp");
+        driver.navigate().to("https://jira.codecool.codecanvas.hu/");
     }
     
     private void setUserName(String name) {
@@ -47,5 +54,10 @@ public class Login {
     
     private void sendCredentials() {
         submitBtn.click();
+    }
+
+    public Boolean errorMessage(){
+        wait.until(ExpectedConditions.visibilityOf(errorMessage));
+        return errorMessage.isDisplayed();
     }
 }

@@ -8,12 +8,16 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class TestCases {
-    
+    static Logger logger = LoggerFactory.getLogger(TestCases.class);
+
     public static WebDriver driver;
     
     @BeforeAll
@@ -24,16 +28,22 @@ public class TestCases {
         
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
+        logger.info("aopsjfmpas");
     }
     
     @Test
-    public void openPage() {
+    public void loginWithValidCredentials() {
         Login login = new Login(driver);
         login.login(System.getenv("name"), System.getenv("pass"));
         UserProfile userProfile = new UserProfile(driver);
-        Assertions.assertEquals(System.getenv("name"), userProfile.getUserName().trim());
+        assertEquals(System.getenv("name"), userProfile.getUserName().trim());
+    }
 
-        //assertEquals("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa", driver.getCurrentUrl());
+    @Test
+    public void loginWithInvalidUsername(){
+        Login login = new Login(driver);
+        login.login("TestUser123", System.getenv("pass"));
+        assertTrue(login.errorMessage());
     }
     
     @AfterAll
