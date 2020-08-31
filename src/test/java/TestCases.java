@@ -1,8 +1,8 @@
-package com.codecool.pommodel;
-
 import com.codecool.pommodel.pom.Login;
+import com.codecool.pommodel.pom.UserProfile;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +12,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class MainPageTest {
+public class TestCases {
     
     public static WebDriver driver;
     
@@ -29,10 +29,11 @@ public class MainPageTest {
     @Test
     public void openPage() {
         Login login = new Login(driver);
-        
         login.login(System.getenv("name"), System.getenv("pass"));
-        
-        assertEquals("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa", driver.getCurrentUrl());
+        UserProfile userProfile = new UserProfile(driver);
+        Assertions.assertEquals(System.getenv("name"), userProfile.getUserName().trim());
+
+        //assertEquals("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa", driver.getCurrentUrl());
     }
     
     @AfterAll
