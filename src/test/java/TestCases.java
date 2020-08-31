@@ -21,23 +21,23 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TestCases {
     private static final Logger logger = LoggerFactory.getLogger(TestCases.class);
-    
+
     private static WebDriver driver;
-    
+
     @BeforeAll
     public static void setUp() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("incognito");
-        
+
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
-        
+
         setProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
-        
+
         logger.info("test started");
     }
-    
+
     @Test
     @Order(3)
     public void loginWithValidCredentials() {
@@ -46,7 +46,7 @@ public class TestCases {
         UserProfile userProfile = new UserProfile(driver);
         assertEquals(System.getenv("name"), userProfile.getUserName().trim());
     }
-    
+
     @Test
     @Order(4)
     public void logOut() {
@@ -54,7 +54,7 @@ public class TestCases {
         mainPage.logOut();
         //assertTrue();
     }
-    
+
     @Test
     @Order(1)
     public void loginWithInvalidUsername() {
@@ -62,7 +62,7 @@ public class TestCases {
         login.login("TestUser123", System.getenv("pass"));
         assertTrue(login.errorMessage());
     }
-    
+
     @Test
     @Order(2)
     public void loginWithInvalidPassword() {
@@ -70,21 +70,19 @@ public class TestCases {
         login.login(System.getenv("name"), "TestPassword123");
         assertTrue(login.errorMessage());
     }
-    
+
     @Test
     @Order(6)
     public void captchaIsShown() {
         Login login = new Login(driver);
-        
-        login.login(System.getenv("name"), System.getenv("pass"));
-        new MainPage(driver).logOut();
-        
         login.login(System.getenv("name"), "TestPassword123");
+        login.errorMessage();
         login.login(System.getenv("name"), "TestPassword123");
+        login.errorMessage();
         login.login(System.getenv("name"), "TestPassword123");
         assertTrue(login.captcha());
     }
-    
+
     @Test
     @Order(5)
     public void loginWithEmptyCredentials() {
@@ -92,7 +90,7 @@ public class TestCases {
         login.login("", "");
         assertTrue(login.errorMessage());
     }
-    
+
     @AfterAll
     public static void tearDown() {
         driver.quit();
