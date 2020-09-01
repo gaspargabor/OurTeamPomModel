@@ -4,11 +4,9 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ProjectCases {
 
@@ -27,11 +25,12 @@ public class ProjectCases {
     }
 
     @Test
-    public void fillSearch() {
+    public void allProjectAreBrowsable() {
         ProjectsPage projectsPage = new ProjectsPage(driver);
         projectsPage.navigateToProjectsPage();
         projectsPage.fillSearch("MTP");
-
+        projectsPage.clickMTP();
+        projectsPage.clickSummary();
     }
 
 
