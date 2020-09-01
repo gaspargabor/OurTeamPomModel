@@ -39,7 +39,7 @@ class BrowseIssue {
     }
     
     @Test
-    void first() throws InterruptedException {
+    void browseIssue_issueBrowsableByKey() throws InterruptedException {
         String testText = "testing creating issue";
         
         new Login(driver).login(System.getenv("name"), System.getenv("pass"));
