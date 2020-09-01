@@ -27,6 +27,8 @@ public class Login {
     @FindBy(id = "captchaimg")
     WebElement captcha;
     
+    @FindBy(id = "header-details-user-fullname")
+    WebElement loggedInIcon;
     
     public Login(WebDriver driver) {
         this.driver = driver;
@@ -39,6 +41,8 @@ public class Login {
         setUserName(name);
         setUserPass(pass);
         sendCredentials();
+        wait.until(ExpectedConditions.visibilityOf(loggedInIcon));
+    
     }
 
     private void navigateToLogin() {
