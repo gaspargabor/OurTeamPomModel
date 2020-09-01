@@ -31,8 +31,8 @@ public class UserProfile {
         PageFactory.initElements(driver, this);
     }
 
-    public String getUserName() {
-        wait.until(ExpectedConditions.attributeToBe(By.xpath("//meta[@name='ajs-remote-user']"), "content", System.getenv("name")));
+
+    public String getUserName(){
         navigateToUserProfile();
         wait.until(ExpectedConditions.visibilityOf(username));
         return username.getAttribute("innerHTML");

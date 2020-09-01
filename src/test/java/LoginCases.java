@@ -1,3 +1,4 @@
+import com.codecool.pommodel.pom.LogOut;
 import com.codecool.pommodel.pom.Login;
 import com.codecool.pommodel.pom.MainPage;
 import com.codecool.pommodel.pom.UserProfile;
@@ -19,8 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class TestCases {
-    private static final Logger logger = LoggerFactory.getLogger(TestCases.class);
+public class LoginCases {
+    private static final Logger logger = LoggerFactory.getLogger(LoginCases.class);
 
     private static WebDriver driver;
 
@@ -39,7 +40,6 @@ public class TestCases {
     }
 
     @Test
-    @Order(3)
     public void loginWithValidCredentials() {
         Login login = new Login(driver);
         login.login(System.getenv("name"), System.getenv("pass"));
@@ -48,15 +48,16 @@ public class TestCases {
     }
 
     @Test
-    @Order(4)
     public void logOut() {
+        Login login = new Login(driver);
+        login.login(System.getenv("name"), System.getenv("pass"));
         MainPage mainPage = new MainPage(driver);
         mainPage.logOut();
-        //assertTrue();
+        LogOut logOut = new LogOut(driver);
+        assertTrue(logOut.getLogOutTitle());
     }
 
     @Test
-    @Order(1)
     public void loginWithInvalidUsername() {
         Login login = new Login(driver);
         login.login("TestUser123", System.getenv("pass"));
@@ -64,7 +65,6 @@ public class TestCases {
     }
 
     @Test
-    @Order(2)
     public void loginWithInvalidPassword() {
         Login login = new Login(driver);
         login.login(System.getenv("name"), "TestPassword123");
@@ -72,19 +72,6 @@ public class TestCases {
     }
 
     @Test
-    @Order(6)
-    public void captchaIsShown() {
-        Login login = new Login(driver);
-        login.login(System.getenv("name"), "TestPassword123");
-        login.errorMessage();
-        login.login(System.getenv("name"), "TestPassword123");
-        login.errorMessage();
-        login.login(System.getenv("name"), "TestPassword123");
-        assertTrue(login.captcha());
-    }
-
-    @Test
-    @Order(5)
     public void loginWithEmptyCredentials() {
         Login login = new Login(driver);
         login.login("", "");
