@@ -8,6 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.concurrent.TimeUnit;
+
 public class TestIssueEdit {
     WebDriver driver;
     WebDriverWait wait;
@@ -40,6 +42,7 @@ public class TestIssueEdit {
     };
 
     public String getSummary(){
+        driver.navigate().to("https://jira.codecool.codecanvas.hu/browse/MTP-1523");
         wait.until(ExpectedConditions.visibilityOf(summary));
         return summary.getText();
     }

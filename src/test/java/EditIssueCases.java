@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EditIssueCases {
@@ -27,12 +28,12 @@ public class EditIssueCases {
     }
 
     @Test
-    public void voidIssueIsEditable(){
+    public void issueIsEditable() {
         TestIssueEdit testIssueEdit = new TestIssueEdit(driver);
         testIssueEdit.openEditScreen();
         EditIssueScreen editIssueScreen = new EditIssueScreen(driver);
         editIssueScreen.editSummaryField("MTP_TEST_ISSUE_AFTER_EDIT");
-        assertEquals(testIssueEdit.getSummary(), "MTP_TEST_ISSUE_AFTER_EDIT");
+        assertEquals("MTP_TEST_ISSUE_AFTER_EDIT", testIssueEdit.getSummary());
         testIssueEdit.clickEditButton();
         editIssueScreen.editSummaryField("MTP_TEST_ISSUE_BEFORE_EDIT");
 

@@ -7,6 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.concurrent.TimeUnit;
+
 public class EditIssueScreen {
     WebDriver driver;
     WebDriverWait wait;
@@ -24,21 +26,22 @@ public class EditIssueScreen {
         PageFactory.initElements(driver, this);
     }
 
-    private void clearSummaryField(){
+    private void clearSummaryField() {
         wait.until(ExpectedConditions.visibilityOf(summaryField));
         summaryField.clear();
     }
 
-    private void fillSummaryField(String string){
+    private void fillSummaryField(String string) {
         summaryField.sendKeys(string);
     }
 
-    private void clickUpdateBtn(){
+    private void clickUpdateBtn() {
         updateBtn.click();
     }
 
+
     public void
-    editSummaryField(String string){
+    editSummaryField(String string) {
         clearSummaryField();
         fillSummaryField(string);
         clickUpdateBtn();
