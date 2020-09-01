@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 public class UserProfile {
 
     WebDriver driver;
@@ -14,7 +16,9 @@ public class UserProfile {
     @FindBy(id = "up-d-username")
     WebElement username;
 
-
+    @FindBy(xpath = "//meta[@name='ajs-remote-user']")
+    WebElement metaTag;
+    
     private void navigateToUserProfile() {
         driver.navigate().to("https://jira.codecool.codecanvas.hu/secure/ViewProfile.jspa");
     }
@@ -25,8 +29,10 @@ public class UserProfile {
         PageFactory.initElements(driver, this);
     }
 
+
     public String getUserName(){
         navigateToUserProfile();
+        wait.until(ExpectedConditions.visibilityOf(username));
         return username.getAttribute("innerHTML");
     }
 }
