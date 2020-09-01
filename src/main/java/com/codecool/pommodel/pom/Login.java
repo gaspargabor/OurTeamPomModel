@@ -1,5 +1,6 @@
 package com.codecool.pommodel.pom;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -39,6 +40,7 @@ public class Login {
         setUserName(name);
         setUserPass(pass);
         sendCredentials();
+        wait.until(ExpectedConditions.attributeToBe(By.xpath("//meta[@name='ajs-remote-user']"), "content", System.getenv("name")));
     }
 
     private void navigateToLogin() {

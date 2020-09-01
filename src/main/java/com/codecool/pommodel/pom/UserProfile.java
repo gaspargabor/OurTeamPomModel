@@ -28,7 +28,6 @@ public class UserProfile {
     }
 
     public String getUserName(){
-        wait.until(ExpectedConditions.attributeToBe(By.xpath("//meta[@name='ajs-remote-user']"), "content", System.getenv("name")));
         navigateToUserProfile();
         return username.getAttribute("innerHTML");
     }
