@@ -24,30 +24,7 @@ public class CreateScreen {
     
     @FindBy(id = "create-issue-submit")
     WebElement createScreenSubmitBtn;
-    
-    @FindBy(id = "find_link")
-    WebElement issuesBtn;
-    
-    @FindBy(id = "summary-val")
-    WebElement issueSummaryText;
-    
-    @FindBy(id = "quicksearch-menu")
-    WebElement quickSearchField;
 
-    @FindBy(id = "opsbar-operations_more")
-    WebElement moreBtn;
-    
-    @FindBy(id = "delete-issue")
-    WebElement deleteBtn;
-    
-    @FindBy(id = "delete-issue-submit")
-    WebElement deleteConfirmBtn;
-    
-    @FindBy(xpath = "//*[@id='aui-flag-container']//a")
-    WebElement confirmPopUp;
-    
-    
-    
     public CreateScreen(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 8);
@@ -59,22 +36,7 @@ public class CreateScreen {
         openUpEditor();
         setSummary(issueText);
         createIssue();
-        return assertMessage();
-    }
-    
-    public void jumpToCreatedIssue(String issue) {
-        driver.navigate().to("https://jira.codecool.codecanvas.hu/browse/" + issue);
-    }
-    
-    public void cleanUp() {
-        wait.until(ExpectedConditions.elementToBeClickable(moreBtn)).click();
-        wait.until(ExpectedConditions.elementToBeClickable(deleteBtn)).click();
-        wait.until(ExpectedConditions.elementToBeClickable(deleteConfirmBtn)).click();
-        
-    }
-    
-    public String assertIssue() {
-        return wait.until(ExpectedConditions.visibilityOf(issueSummaryText)).getText();
+        return new MainPage(driver).assertMessage();
     }
     
     private void openUpEditor() {
@@ -90,11 +52,5 @@ public class CreateScreen {
     
     private void createIssue() {
         createScreenSubmitBtn.click();
-    }
-    
-    private String assertMessage() {
-        return wait
-                .until(ExpectedConditions.visibilityOf(confirmPopUp))
-                .getAttribute("data-issue-key");
     }
 }

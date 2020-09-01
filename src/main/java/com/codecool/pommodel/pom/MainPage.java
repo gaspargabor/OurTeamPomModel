@@ -21,7 +21,10 @@ public class MainPage {
 
     @FindBy(id = "log_out")
     WebElement logOutBtn;
-
+    
+    @FindBy(xpath = "//*[@id='aui-flag-container']//a")
+    WebElement confirmPopUp;
+    
     public MainPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 5);
@@ -33,5 +36,10 @@ public class MainPage {
         profilePictureBtn.click();
         logOutBtn.click();
     }
-
+    
+    public String assertMessage() {
+        return wait
+                .until(ExpectedConditions.visibilityOf(confirmPopUp))
+                .getAttribute("data-issue-key");
+    }
 }
