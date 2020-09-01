@@ -28,19 +28,29 @@ public class CreateScreen {
     @FindBy(id = "find_link")
     WebElement issuesBtn;
     
-    
     @FindBy(id = "summary-val")
     WebElement issueSummaryText;
     
-    @FindBy(xpath = ("//*[@id='issues_history_main']/ul/li[1]"))
-    WebElement recentIssues;
+    @FindBy(id = "quicksearch-menu")
+    WebElement quickSearchField;
+
+    @FindBy(id = "opsbar-operations_more")
+    WebElement moreBtn;
     
-    @FindBy(xpath = "//*[@id='aui-flag-container']/div/div")
+    @FindBy(id = "delete-issue")
+    WebElement deleteBtn;
+    
+    @FindBy(id = "delete-issue-submit")
+    WebElement deleteConfirmBtn;
+    
+    @FindBy(xpath = "//*[@id='aui-flag-container']//a")
     WebElement confirmPopUp;
+    
+    
     
     public CreateScreen(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 5);
+        this.wait = new WebDriverWait(driver, 8);
         PageFactory.initElements(driver, this);
     }
     
@@ -52,17 +62,19 @@ public class CreateScreen {
         return assertMessage();
     }
     
-    public void jumpToCreatedIssue() {
-        issues();
-        wait.until(ExpectedConditions.visibilityOf(recentIssues)).click();
+    public void jumpToCreatedIssue(String issue) {
+        driver.navigate().to("https://jira.codecool.codecanvas.hu/browse/" + issue);
+    }
+    
+    public void cleanUp() {
+        wait.until(ExpectedConditions.elementToBeClickable(moreBtn)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(deleteBtn)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(deleteConfirmBtn)).click();
+        
     }
     
     public String assertIssue() {
         return wait.until(ExpectedConditions.visibilityOf(issueSummaryText)).getText();
-    }
-    
-    private void issues() {
-        issuesBtn.click();
     }
     
     private void openUpEditor() {
@@ -83,6 +95,6 @@ public class CreateScreen {
     private String assertMessage() {
         return wait
                 .until(ExpectedConditions.visibilityOf(confirmPopUp))
-                .getText();
+                .getAttribute("data-issue-key");
     }
 }

@@ -45,9 +45,11 @@ class BrowseIssue {
         new Login(driver).login(System.getenv("name"), System.getenv("pass"));
         CreateScreen createScreen = new CreateScreen(driver);
         
-        createScreen.createIssueFromEditorScreen(testText);
-        createScreen.jumpToCreatedIssue();
+        String createdMessage = createScreen.createIssueFromEditorScreen(testText);
+        createScreen.jumpToCreatedIssue(createdMessage);
         
         assertEquals(testText, createScreen.assertIssue());
+        
+        createScreen.cleanUp();
     }
 }
