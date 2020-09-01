@@ -24,23 +24,10 @@ public class CreateScreen {
     
     @FindBy(id = "create-issue-submit")
     WebElement createScreenSubmitBtn;
-    
-    @FindBy(id = "find_link")
-    WebElement issuesBtn;
-    
-    
-    @FindBy(id = "summary-val")
-    WebElement issueSummaryText;
-    
-    @FindBy(xpath = ("//*[@id='issues_history_main']/ul/li[1]"))
-    WebElement recentIssues;
-    
-    @FindBy(xpath = "//*[@id='aui-flag-container']/div/div")
-    WebElement confirmPopUp;
-    
+
     public CreateScreen(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 5);
+        this.wait = new WebDriverWait(driver, 8);
         PageFactory.initElements(driver, this);
     }
     
@@ -49,20 +36,7 @@ public class CreateScreen {
         openUpEditor();
         setSummary(issueText);
         createIssue();
-        return assertMessage();
-    }
-    
-    public void jumpToCreatedIssue() {
-        issues();
-        wait.until(ExpectedConditions.visibilityOf(recentIssues)).click();
-    }
-    
-    public String assertIssue() {
-        return wait.until(ExpectedConditions.visibilityOf(issueSummaryText)).getText();
-    }
-    
-    private void issues() {
-        issuesBtn.click();
+        return new MainPage(driver).assertMessage();
     }
     
     private void openUpEditor() {
@@ -78,11 +52,5 @@ public class CreateScreen {
     
     private void createIssue() {
         createScreenSubmitBtn.click();
-    }
-    
-    private String assertMessage() {
-        return wait
-                .until(ExpectedConditions.visibilityOf(confirmPopUp))
-                .getText();
     }
 }

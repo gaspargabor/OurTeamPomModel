@@ -1,7 +1,4 @@
-import com.codecool.pommodel.pom.CreateScreen;
-import com.codecool.pommodel.pom.Login;
-import com.codecool.pommodel.pom.MainPage;
-import com.codecool.pommodel.pom.UserProfile;
+import com.codecool.pommodel.pom.*;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -39,15 +36,17 @@ class BrowseIssue {
     }
     
     @Test
-    void first() throws InterruptedException {
+    void browseIssue_issueBrowsableByKey() {
         String testText = "testing creating issue";
         
         new Login(driver).login(System.getenv("name"), System.getenv("pass"));
-        CreateScreen createScreen = new CreateScreen(driver);
+        BrowsePage browsePage = new BrowsePage(driver);
         
-        createScreen.createIssueFromEditorScreen(testText);
-        createScreen.jumpToCreatedIssue();
+        String createdMessage = new CreateScreen(driver).createIssueFromEditorScreen(testText);
+        browsePage.jumpToCreatedIssue(createdMessage);
         
-        assertEquals(testText, createScreen.assertIssue());
+        assertEquals(testText, browsePage.assertIssue());
+        
+        browsePage.cleanUp();
     }
 }
