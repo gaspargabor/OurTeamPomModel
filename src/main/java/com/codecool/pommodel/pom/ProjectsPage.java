@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class ProjectsPage {
     WebDriver driver;
     WebDriverWait wait;
-
     @FindBy(id = "project-filter-text")
     WebElement searchField;
 

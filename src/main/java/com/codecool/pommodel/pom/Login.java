@@ -10,8 +10,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Login {
 
+    private static final String URL = "https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa";
     WebDriver driver;
     WebDriverWait wait;
+    
+    @FindBy(xpath = "//meta[@name='ajs-remote-user']")
+    WebElement metaTag;
     
     @FindBy(xpath = "//*[@id='login-form-username']")
     WebElement userName;
@@ -43,11 +47,11 @@ public class Login {
         setUserPass(pass);
         sendCredentials();
 
-        wait.until(ExpectedConditions.attributeToBe(By.xpath("//meta[@name='ajs-remote-user']"), "content", System.getenv("name")));
+        wait.until(ExpectedConditions.attributeToBe(metaTag, "content", System.getenv("name")));
     }
 
     private void navigateToLogin() {
-        driver.navigate().to("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
+        driver.navigate().to(URL);
     }
     
     private void setUserName(String name) {

@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 
 public class BrowsePage {
     
+    private static final String URL = "https://jira.codecool.codecanvas.hu/browse/";
+    
     Logger logger = LoggerFactory.getLogger(BrowsePage.class);
     WebDriver driver;
     WebDriverWait wait;
@@ -40,7 +42,7 @@ public class BrowsePage {
     }
     
     public void jumpToCreatedIssue(String issue) {
-        driver.navigate().to("https://jira.codecool.codecanvas.hu/browse/" + issue);
+        driver.navigate().to(URL + issue);
     }
 
     public String assertIssue() {
