@@ -14,9 +14,6 @@ public class UserProfile {
 
     @FindBy(id = "up-d-username")
     WebElement username;
-
-    @FindBy(xpath = "//meta[@name='ajs-remote-user']")
-    WebElement metaTag;
     
     private void navigateToUserProfile() {
         driver.navigate().to("https://jira.codecool.codecanvas.hu/secure/ViewProfile.jspa");

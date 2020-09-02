@@ -6,14 +6,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class BrowsePage {
     
     private static final String URL = "https://jira.codecool.codecanvas.hu/browse/";
-    
-    Logger logger = LoggerFactory.getLogger(BrowsePage.class);
+
     WebDriver driver;
     WebDriverWait wait;
     

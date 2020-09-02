@@ -72,4 +72,11 @@ public class CreateIssueCases {
         CreateScreen createScreen = new CreateScreen(driver);
         createScreen.createSubTask();
     }
+
+    @Test
+    public void createIssueType() {
+        CreateScreen createScreen = new CreateScreen(driver);
+        createScreen.openUpEditor();
+        createScreen.setIssueType();
+    }
 }

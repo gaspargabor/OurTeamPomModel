@@ -7,12 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class CreateScreen {
-    
-    Logger logger = LoggerFactory.getLogger(CreateScreen.class);
+
     WebDriver driver;
     WebDriverWait wait;
     
@@ -37,6 +34,9 @@ public class CreateScreen {
     @FindBy(id = "create-subtask-dialog")
     WebElement createSubTaskModal;
 
+    @FindBy(id = "issuetype-field")
+    WebElement issueTypeField;
+
     public CreateScreen(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 8);
@@ -48,7 +48,6 @@ public class CreateScreen {
     }
     
     public String createIssueFromEditorScreen(String issueText) {
-        logger.info("create issue started");
         openUpEditor();
         setSummary(issueText);
         createIssue();
@@ -76,6 +75,10 @@ public class CreateScreen {
         summaryField.click();
         summaryField.sendKeys(Keys.DELETE);
         summaryField.sendKeys(issueText);
+    }
+
+    public void setIssueType() {
+        wait.until(ExpectedConditions.elementToBeClickable(issueTypeField)).click();
     }
     
     public void createIssue() {
