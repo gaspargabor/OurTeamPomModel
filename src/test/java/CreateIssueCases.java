@@ -1,5 +1,6 @@
 import com.codecool.pommodel.pom.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
@@ -77,6 +78,13 @@ public class CreateIssueCases {
     public void createIssueType() {
         CreateScreen createScreen = new CreateScreen(driver);
         createScreen.openUpEditor();
-        createScreen.setIssueType();
+        createScreen.setIssueType("Story");
+        createScreen.setIssueType("Task");
+        createScreen.setIssueType("Bug");
+    }
+
+    @AfterAll
+    public static void tearDown() {
+        driver.quit();
     }
 }
