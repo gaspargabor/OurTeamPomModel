@@ -1,6 +1,7 @@
 import com.codecool.pommodel.pom.Login;
 import com.codecool.pommodel.pom.ProjectsPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;

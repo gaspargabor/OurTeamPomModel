@@ -81,6 +81,7 @@ public class CreateScreen {
         wait.until(ExpectedConditions.elementToBeClickable(issueTypeField)).click();
         issueTypeField.sendKeys(issueType);
         issueTypeField.sendKeys(Keys.ENTER);
+        //System.out.println(issueTypeField.getAttribute("aria-controls"));
     }
 
     public void createIssue() {
