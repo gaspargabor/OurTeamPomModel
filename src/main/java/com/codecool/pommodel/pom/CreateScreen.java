@@ -30,6 +30,10 @@ public class CreateScreen {
         this.wait = new WebDriverWait(driver, 8);
         PageFactory.initElements(driver, this);
     }
+
+    public void checkForSubmitBtn () {
+        wait.until(ExpectedConditions.visibilityOf(createScreenSubmitBtn));
+    }
     
     public String createIssueFromEditorScreen(String issueText) {
         logger.info("create issue started");
@@ -39,18 +43,18 @@ public class CreateScreen {
         return new MainPage(driver).assertMessage();
     }
     
-    private void openUpEditor() {
+    public void openUpEditor() {
         createBtn.click();
     }
     
-    private void setSummary(String issueText) {
+    public void setSummary(String issueText) {
         wait.until(ExpectedConditions.visibilityOf(summaryField));
         summaryField.click();
         summaryField.sendKeys(Keys.DELETE);
         summaryField.sendKeys(issueText);
     }
     
-    private void createIssue() {
+    public void createIssue() {
         createScreenSubmitBtn.click();
     }
 }
