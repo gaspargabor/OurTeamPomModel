@@ -51,7 +51,7 @@ public class CreateScreen {
         openUpEditor();
         setSummary(issueText);
         createIssue();
-        return new MainPage(driver).assertMessage();
+        return new MainPage(driver).getIdFromPopUp();
     }
     
     public void openUpEditor() {
