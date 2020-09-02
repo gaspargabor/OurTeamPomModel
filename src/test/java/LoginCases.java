@@ -14,11 +14,11 @@ import static java.lang.System.setProperty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class LoginCases {
     private static final Logger logger = LoggerFactory.getLogger(LoginCases.class);
 
     private static WebDriver driver;
+    private Login login = new Login(driver);
 
     @BeforeAll
     public static void setUp() {
@@ -36,16 +36,16 @@ public class LoginCases {
 
     @Test
     public void loginWithValidCredentials() {
-        Login login = new Login(driver);
-        login.login(System.getenv("name"), System.getenv("pass"));
+        login.simpleLogin(System.getenv("name"), System.getenv("pass"));
         UserProfile userProfile = new UserProfile(driver);
         assertEquals(System.getenv("name"), userProfile.getUserName().trim());
+        MainPage mainPage = new MainPage(driver);
+        mainPage.logOut();
     }
 
     @Test
     public void logOut() {
-        Login login = new Login(driver);
-        login.login(System.getenv("name"), System.getenv("pass"));
+        login.loginForLoginTests(System.getenv("name"), System.getenv("pass"));
         MainPage mainPage = new MainPage(driver);
         mainPage.logOut();
         LogOut logOut = new LogOut(driver);
@@ -54,22 +54,19 @@ public class LoginCases {
 
     @Test
     public void loginWithInvalidUsername() {
-        Login login = new Login(driver);
-        login.login("TestUser123", System.getenv("pass"));
+        login.loginForLoginTests("TestUser123", System.getenv("pass"));
         assertTrue(login.errorMessage());
     }
 
     @Test
     public void loginWithInvalidPassword() {
-        Login login = new Login(driver);
-        login.login(System.getenv("name"), "TestPassword123");
+        login.loginForLoginTests(System.getenv("name"), "TestPassword123");
         assertTrue(login.errorMessage());
     }
 
     @Test
     public void loginWithEmptyCredentials() {
-        Login login = new Login(driver);
-        login.login("", "");
+        login.loginForLoginTests("", "");
         assertTrue(login.errorMessage());
     }
 

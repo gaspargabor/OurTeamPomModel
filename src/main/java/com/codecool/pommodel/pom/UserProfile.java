@@ -1,13 +1,12 @@
 package com.codecool.pommodel.pom;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class UserProfile {
 
@@ -16,11 +15,9 @@ public class UserProfile {
 
     @FindBy(id = "up-d-username")
     WebElement username;
-
-    @FindBy(xpath = "//meta[@name='ajs-remote-user']")
-    WebElement metaTag;
     
     private void navigateToUserProfile() {
+        wait.until(ExpectedConditions.attributeToBe(By.xpath("//meta[@name='ajs-remote-user']"), "content", System.getenv("name")));
         driver.navigate().to("https://jira.codecool.codecanvas.hu/secure/ViewProfile.jspa");
     }
 

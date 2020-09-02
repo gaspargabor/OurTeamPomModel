@@ -1,13 +1,12 @@
 package com.codecool.pommodel.pom;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.concurrent.TimeUnit;
 
 public class EditIssueScreen {
     WebDriver driver;
@@ -19,6 +18,11 @@ public class EditIssueScreen {
     @FindBy(id = "edit-issue-submit")
     WebElement updateBtn;
 
+    @FindBy(linkText = "Cancel")
+    WebElement cancelBtn;
+
+    @FindBy(className = "error")
+    WebElement errorMessage;
 
     public EditIssueScreen(WebDriver driver) {
         this.driver = driver;
@@ -39,9 +43,39 @@ public class EditIssueScreen {
         updateBtn.click();
     }
 
+    private void clickCancelBtn(){
+        cancelBtn.click();
+    }
 
-    public void
-    editSummaryField(String string) {
+    private void acceptPopUp(){
+        wait.until(ExpectedConditions.alertIsPresent());
+        driver.switchTo().alert().accept();
+    }
+
+    public void changeSummaryAndCancelEdit(String string){
+        clearSummaryField();
+        fillSummaryField(string);
+        clickCancelBtn();
+        acceptPopUp();
+    }
+
+    public void changeSummaryToEmptyAndClickUpdate(){
+        clearSummaryField();
+        clickUpdateBtn();
+    }
+
+    public Boolean errorMessageIsShown(){
+        wait.until(ExpectedConditions.visibilityOf(errorMessage));
+        return errorMessage.isDisplayed();
+    }
+
+    public void cancelPopUp(){
+        clickCancelBtn();
+        acceptPopUp();
+    }
+
+
+    public void editSummaryField(String string) {
         clearSummaryField();
         fillSummaryField(string);
         clickUpdateBtn();

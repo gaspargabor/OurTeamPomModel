@@ -3,17 +3,21 @@ import com.codecool.pommodel.pom.Login;
 import com.codecool.pommodel.pom.TestIssueEdit;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EditIssueCases {
     private static WebDriver driver;
+    private TestIssueEdit testIssueEdit = new TestIssueEdit(driver);
+    private EditIssueScreen editIssueScreen = new EditIssueScreen(driver);
 
     @BeforeAll
     public static void setUp() {
@@ -24,19 +28,48 @@ public class EditIssueCases {
         driver.manage().window().maximize();
 
         Login login = new Login(driver);
-        login.login(System.getenv("name"), System.getenv("pass"));
+        login.simpleLogin(System.getenv("name"), System.getenv("pass"));
     }
 
     @Test
     public void issueIsEditable() {
-        TestIssueEdit testIssueEdit = new TestIssueEdit(driver);
         testIssueEdit.openEditScreen();
-        EditIssueScreen editIssueScreen = new EditIssueScreen(driver);
         editIssueScreen.editSummaryField("MTP_TEST_ISSUE_AFTER_EDIT");
-        assertEquals("MTP_TEST_ISSUE_AFTER_EDIT", testIssueEdit.getSummary());
+        assertEquals("MTP_TEST_ISSUE_AFTER_EDIT", testIssueEdit.getSummary("MTP_TEST_ISSUE_AFTER_EDIT"));
         testIssueEdit.clickEditButton();
         editIssueScreen.editSummaryField("MTP_TEST_ISSUE_BEFORE_EDIT");
+        assertEquals("MTP_TEST_ISSUE_BEFORE_EDIT", testIssueEdit.getSummary("MTP_TEST_ISSUE_BEFORE_EDIT"));
+    }
 
+    @Test
+    public void issueIsCancelable() {
+        testIssueEdit.openEditScreen();
+        editIssueScreen.changeSummaryAndCancelEdit("MTP_TEST_ISSUE_AFTER_EDIT");
+        assertEquals("MTP_TEST_ISSUE_BEFORE_EDIT", testIssueEdit.getSummary("MTP_TEST_ISSUE_BEFORE_EDIT"));
+
+    }
+
+    @Test
+    public void issueIsNotEditableWithEmptySummary() {
+        testIssueEdit.openEditScreen();
+        editIssueScreen.changeSummaryToEmptyAndClickUpdate();
+        assertTrue(editIssueScreen.errorMessageIsShown());
+        editIssueScreen.cancelPopUp();
+    }
+
+    @Test
+    public void editIssueOnYeti() {
+        assertTrue(testIssueEdit.testEditOnYetiProject());
+    }
+
+    @Test
+    public void editIssueOnCoala() {
+        assertTrue(testIssueEdit.testEditOnCoalaProject());
+    }
+
+    @Test
+    public void editIssueOnToucan() {
+        assertTrue(testIssueEdit.testEditOnToucanProject());
     }
 
     @AfterAll
