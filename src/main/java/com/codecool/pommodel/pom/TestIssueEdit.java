@@ -1,8 +1,7 @@
 package com.codecool.pommodel.pom;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import net.bytebuddy.implementation.bytecode.Throw;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -20,34 +19,111 @@ public class TestIssueEdit {
     @FindBy(id = "summary-val")
     WebElement summary;
 
+    @FindBy(xpath = "//h1[@id='summary-val']//span")
+    WebElement pencilIcon;
+
+    @FindBy(id = "summary")
+    WebElement bigSummaryField;
+
     public TestIssueEdit(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 5);
         PageFactory.initElements(driver, this);
     }
 
-    private void navigateToPage(){
-        driver.navigate().to("https://jira.codecool.codecanvas.hu/browse/MTP-1523");
+    private void navigateToPage(String string) {
+        driver.navigate().to(string);
     }
 
-    public void clickEditButton(){
+    private void clickPencilIcon() {
+        pencilIcon.click();
+    }
+
+    private void clearSummary() {
+        bigSummaryField.clear();
+    }
+
+    private void fillSummary() throws InterruptedException {
+        Thread.sleep(2000);
+        bigSummaryField.sendKeys("MTP_TEST_ISSUE_AFTER_EDIT");
+    }
+
+
+    public void clickEditButton() {
         wait.until(ExpectedConditions.visibilityOf(editBtn));
         editBtn.click();
     }
 
-    public void openEditScreen(){
-        navigateToPage();
-        clickEditButton();
-    };
-
-    public String getSummary() throws InterruptedException {
+    private void pressEnter() throws InterruptedException {
+        bigSummaryField.sendKeys(Keys.ENTER);
         wait.until(ExpectedConditions.visibilityOf(summary));
-        while (!summary.getText().equals("MTP_TEST_ISSUE_AFTER_EDIT")){
+    }
+
+    public void openEditScreen() {
+        navigateToPage("https://jira.codecool.codecanvas.hu/browse/MTP-1523");
+        clickEditButton();
+    }
+
+    public void inlineEdit() throws InterruptedException {
+        navigateToPage("https://jira.codecool.codecanvas.hu/browse/MTP-1523");
+        wait.until(ExpectedConditions.visibilityOf(summary));
+        clickPencilIcon();
+        clearSummary();
+        fillSummary();
+        pressEnter();
+    }
+
+    public String getSummaryAfterInlineEdit() {
+        while (!summary.isDisplayed()) {
+            driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
+        }
+        return summary.getText();
+    }
+
+    public String getSummary(String string) {
+        wait.until(ExpectedConditions.visibilityOf(summary));
+        while (!summary.getText().equals(string)) {
             driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
         }
         driver.navigate().to("https://jira.codecool.codecanvas.hu/browse/MTP-1523");
         wait.until(ExpectedConditions.visibilityOf(summary));
         return summary.getText();
+    }
+
+    public Boolean testEditOnYetiProject(){
+        navigateToPage("https://jira.codecool.codecanvas.hu/browse/JETI-2");
+        boolean present = false;
+        try {
+            present = editBtn.isDisplayed();
+        }
+        catch (NoSuchElementException e){
+            System.out.println("Edit button is missing.");
+        }
+        return present;
+    }
+
+    public Boolean testEditOnToucanProject(){
+        navigateToPage("https://jira.codecool.codecanvas.hu/browse/TOUCAN-124");
+        boolean present = false;
+        try {
+            present = editBtn.isDisplayed();
+        }
+        catch (NoSuchElementException e){
+            System.out.println("Edit button is missing.");
+        }
+        return present;
+    }
+
+    public Boolean testEditOnCoalaProject(){
+        navigateToPage("https://jira.codecool.codecanvas.hu/browse/COALA-2");
+        boolean present = false;
+        try {
+            present = editBtn.isDisplayed();
+        }
+        catch (NoSuchElementException e){
+            System.out.println("Edit button is missing.");
+        }
+        return present;
     }
 
 }

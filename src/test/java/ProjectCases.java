@@ -24,11 +24,12 @@ public class ProjectCases {
     }
 
     @Test
-    public void fillSearch() {
+    public void allProjectAreBrowsable() {
         ProjectsPage projectsPage = new ProjectsPage(driver);
         projectsPage.navigateToProjectsPage();
         projectsPage.fillSearch("MTP");
-
+        projectsPage.clickMTP();
+        projectsPage.clickSummary();
     }
 
 

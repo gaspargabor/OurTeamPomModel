@@ -20,6 +20,11 @@ public class EditIssueScreen {
     @FindBy(id = "edit-issue-submit")
     WebElement updateBtn;
 
+    @FindBy(linkText = "Cancel")
+    WebElement cancelBtn;
+
+    @FindBy(className = "error")
+    WebElement errorMessage;
 
     public EditIssueScreen(WebDriver driver) {
         this.driver = driver;
@@ -38,6 +43,31 @@ public class EditIssueScreen {
 
     private void clickUpdateBtn() {
         summaryField.sendKeys(Keys.ENTER);
+    }
+
+    private void clickCancelBtn(){
+        cancelBtn.click();
+    }
+
+    private void acceptPopUp(){
+        driver.switchTo().alert().accept();
+    }
+
+    public void changeSummaryAndCancelEdit(String string){
+        clearSummaryField();
+        fillSummaryField(string);
+        clickCancelBtn();
+        acceptPopUp();
+    }
+
+    public void changeSummaryToEmptyAndClickUpdate(){
+        clearSummaryField();
+        clickUpdateBtn();
+    }
+
+    public Boolean errorMessageIsShown(){
+        wait.until(ExpectedConditions.visibilityOf(errorMessage));
+        return errorMessage.isDisplayed();
     }
 
 

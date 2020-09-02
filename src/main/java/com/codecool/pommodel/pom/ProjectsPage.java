@@ -9,9 +9,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class ProjectsPage {
     WebDriver driver;
     WebDriverWait wait;
-
     @FindBy(id = "project-filter-text")
     WebElement searchField;
+
+    @FindBy(xpath = "//*[@id=\"projects\"]//a[@href='/browse/MTP']")
+    WebElement mtpLink;
+
+    @FindBy(xpath = "//a[@href='/projects/MTP/summary']")
+    WebElement mtpSummary;
 
     public ProjectsPage(WebDriver driver) {
         this.driver = driver;
@@ -21,6 +26,14 @@ public class ProjectsPage {
 
     public void navigateToProjectsPage() {
         driver.navigate().to("https://jira.codecool.codecanvas.hu/secure/BrowseProjects.jspa?selectedCategory=all&selectedProjectType=all");
+    }
+
+    public void clickMTP() {
+        mtpLink.click();
+    }
+
+    public void clickSummary() {
+        mtpSummary.click();
     }
 
     public void fillSearch(String name) {

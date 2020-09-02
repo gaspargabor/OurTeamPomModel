@@ -12,8 +12,12 @@ import java.util.concurrent.TimeUnit;
 
 public class Login {
 
+    private static final String URL = "https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa";
     WebDriver driver;
     WebDriverWait wait;
+
+    @FindBy(xpath = "//meta[@name='ajs-remote-user']")
+    WebElement metaTag;
 
     @FindBy(xpath = "//*[@id='login-form-username']")
     WebElement userName;
@@ -35,7 +39,7 @@ public class Login {
 
     public Login(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 5);
+        this.wait = new WebDriverWait(driver, 8);
         PageFactory.initElements(driver, this);
     }
 
