@@ -1,7 +1,4 @@
-import com.codecool.pommodel.pom.BrowsePage;
-import com.codecool.pommodel.pom.CreateScreen;
-import com.codecool.pommodel.pom.Login;
-import com.codecool.pommodel.pom.MainPage;
+import com.codecool.pommodel.pom.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -50,5 +47,29 @@ public class CreateIssueCases {
         createScreen.checkForSubmitBtn();
         createScreen.createIssue();
         assertEquals("You must specify a summary of the issue.", createScreen.getErrorMessage());
+    }
+
+    @Test
+    public void createTOUCANSubTaskTest() {
+        ProjectsPage projectsPage = new ProjectsPage(driver);
+        projectsPage.navigateToProjectsPage("https://jira.codecool.codecanvas.hu/browse/TOUCAN-571");
+        CreateScreen createScreen = new CreateScreen(driver);
+        createScreen.createSubTask();
+    }
+
+    @Test
+    public void createJETISubTaskTest() {
+        ProjectsPage projectsPage = new ProjectsPage(driver);
+        projectsPage.navigateToProjectsPage("https://jira.codecool.codecanvas.hu/browse/JETI-393");
+        CreateScreen createScreen = new CreateScreen(driver);
+        createScreen.createSubTask();
+    }
+
+    @Test
+    public void createCOALASubTaskTest() {
+        ProjectsPage projectsPage = new ProjectsPage(driver);
+        projectsPage.navigateToProjectsPage("https://jira.codecool.codecanvas.hu/browse/COALA-599");
+        CreateScreen createScreen = new CreateScreen(driver);
+        createScreen.createSubTask();
     }
 }

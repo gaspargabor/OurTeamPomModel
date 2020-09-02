@@ -38,8 +38,7 @@ public class EditIssueScreen {
     }
 
 
-    public void
-    editSummaryField(String string) {
+    public void editSummaryField(String string) {
         clearSummaryField();
         fillSummaryField(string);
         clickUpdateBtn();

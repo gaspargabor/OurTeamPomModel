@@ -28,6 +28,15 @@ public class CreateScreen {
     @FindBy(className = "error")
     WebElement errorMessage;
 
+    @FindBy(id = "opsbar-operations_more")
+    WebElement moreBtn;
+
+    @FindBy(id = "create-subtask")
+    WebElement createSubTask;
+
+    @FindBy(id = "create-subtask-dialog")
+    WebElement createSubTaskModal;
+
     public CreateScreen(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 8);
@@ -54,6 +63,12 @@ public class CreateScreen {
     public String getErrorMessage() {
         wait.until(ExpectedConditions.visibilityOf(errorMessage));
         return errorMessage.getText();
+    }
+
+    public void createSubTask() {
+        wait.until(ExpectedConditions.elementToBeClickable(moreBtn)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(createSubTask)).click();
+        wait.until(ExpectedConditions.visibilityOf(createSubTaskModal));
     }
     
     public void setSummary(String issueText) {
