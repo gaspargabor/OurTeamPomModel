@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 public class MainPage {
 
-    Logger logger = LoggerFactory.getLogger(MainPage.class);
     WebDriver driver;
     WebDriverWait wait;
 

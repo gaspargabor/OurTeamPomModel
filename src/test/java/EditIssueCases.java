@@ -48,24 +48,24 @@ public class EditIssueCases {
     }
 
     @Test
-    public void issueIsNotEditableWithEmptySummary(){
+    public void issueIsNotEditableWithEmptySummary() {
         testIssueEdit.openEditScreen();
         editIssueScreen.changeSummaryToEmptyAndClickUpdate();
         assertTrue(editIssueScreen.errorMessageIsShown());
     }
 
     @Test
-    public void editIssueOnYeti(){
+    public void editIssueOnYeti() {
         assertTrue(testIssueEdit.testEditOnYetiProject());
     }
 
     @Test
-    public void editIssueOnCoala(){
+    public void editIssueOnCoala() {
         assertTrue(testIssueEdit.testEditOnCoalaProject());
     }
 
     @Test
-    public void editIssueOnToucan(){
+    public void editIssueOnToucan() {
         assertTrue(testIssueEdit.testEditOnToucanProject());
     }
 

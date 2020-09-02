@@ -8,8 +8,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.concurrent.TimeUnit;
-
 public class EditIssueScreen {
     WebDriver driver;
     WebDriverWait wait;
@@ -71,8 +69,7 @@ public class EditIssueScreen {
     }
 
 
-    public void
-    editSummaryField(String string) {
+    public void editSummaryField(String string) {
         clearSummaryField();
         fillSummaryField(string);
         clickUpdateBtn();

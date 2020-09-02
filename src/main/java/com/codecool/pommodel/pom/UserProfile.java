@@ -8,8 +8,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
 public class UserProfile {
 
     WebDriver driver;
@@ -17,9 +15,6 @@ public class UserProfile {
 
     @FindBy(id = "up-d-username")
     WebElement username;
-
-    @FindBy(xpath = "//meta[@name='ajs-remote-user']")
-    WebElement metaTag;
     
     private void navigateToUserProfile() {
         wait.until(ExpectedConditions.attributeToBe(By.xpath("//meta[@name='ajs-remote-user']"), "content", System.getenv("name")));

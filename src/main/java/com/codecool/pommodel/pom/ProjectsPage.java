@@ -4,11 +4,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProjectsPage {
     WebDriver driver;
     WebDriverWait wait;
+
     @FindBy(id = "project-filter-text")
     WebElement searchField;
 
@@ -18,14 +20,17 @@ public class ProjectsPage {
     @FindBy(xpath = "//a[@href='/projects/MTP/summary']")
     WebElement mtpSummary;
 
+    @FindBy(xpath = "//*[@id=\"summary-subnav-title\"]/span")
+    WebElement activityTitle;
+
     public ProjectsPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 5);
         PageFactory.initElements(driver, this);
     }
 
-    public void navigateToProjectsPage() {
-        driver.navigate().to("https://jira.codecool.codecanvas.hu/secure/BrowseProjects.jspa?selectedCategory=all&selectedProjectType=all");
+    public void navigateToProjectsPage(String url) {
+        driver.navigate().to(url);
     }
 
     public void clickMTP() {
@@ -38,5 +43,10 @@ public class ProjectsPage {
 
     public void fillSearch(String name) {
         searchField.sendKeys(name);
+    }
+
+    public Boolean checkSummary() {
+        wait.until(ExpectedConditions.attributeToBe(activityTitle, "title", "Activity"));
+        return activityTitle.isDisplayed();
     }
 }
