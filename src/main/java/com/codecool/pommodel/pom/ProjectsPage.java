@@ -7,12 +7,14 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProjectsPage {
+    
+    private static final String URL = "https://jira.codecool.codecanvas.hu/secure/BrowseProjects.jspa?selectedCategory=all&selectedProjectType=all";
     WebDriver driver;
     WebDriverWait wait;
     @FindBy(id = "project-filter-text")
     WebElement searchField;
 
-    @FindBy(xpath = "//*[@id=\"projects\"]//a[@href='/browse/MTP']")
+    @FindBy(xpath = "//*[@id='projects']//a[@href='/browse/MTP']")
     WebElement mtpLink;
 
     @FindBy(xpath = "//a[@href='/projects/MTP/summary']")
@@ -25,7 +27,7 @@ public class ProjectsPage {
     }
 
     public void navigateToProjectsPage() {
-        driver.navigate().to("https://jira.codecool.codecanvas.hu/secure/BrowseProjects.jspa?selectedCategory=all&selectedProjectType=all");
+        driver.navigate().to(URL);
     }
 
     public void clickMTP() {
