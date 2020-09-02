@@ -34,14 +34,14 @@ class BrowseIssue {
     void browseIssue_issueBrowsableByKey() {
         String testText = "testing creating issue";
         
-        new Login(driver).login(System.getenv("name"), System.getenv("pass"));
+        new Login(driver).simpleLogin(System.getenv("name"), System.getenv("pass"));
         BrowsePage browsePage = new BrowsePage(driver);
         
         String createdMessage = new CreateScreen(driver).createIssueFromEditorScreen(testText);
         browsePage.jumpToCreatedIssue(createdMessage);
         
         assertEquals(testText, browsePage.assertIssue());
-        
+
         browsePage.cleanUp();
     }
 }
