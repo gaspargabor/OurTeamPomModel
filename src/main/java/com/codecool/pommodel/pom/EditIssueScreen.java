@@ -40,7 +40,7 @@ public class EditIssueScreen {
     }
 
     private void clickUpdateBtn() {
-        summaryField.sendKeys(Keys.ENTER);
+        updateBtn.click();
     }
 
     private void clickCancelBtn(){
@@ -48,6 +48,7 @@ public class EditIssueScreen {
     }
 
     private void acceptPopUp(){
+        wait.until(ExpectedConditions.alertIsPresent());
         driver.switchTo().alert().accept();
     }
 
@@ -66,6 +67,11 @@ public class EditIssueScreen {
     public Boolean errorMessageIsShown(){
         wait.until(ExpectedConditions.visibilityOf(errorMessage));
         return errorMessage.isDisplayed();
+    }
+
+    public void cancelPopUp(){
+        clickCancelBtn();
+        acceptPopUp();
     }
 
 

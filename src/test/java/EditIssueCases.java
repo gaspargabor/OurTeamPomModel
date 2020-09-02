@@ -4,7 +4,9 @@ import com.codecool.pommodel.pom.TestIssueEdit;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -30,13 +32,13 @@ public class EditIssueCases {
     }
 
     @Test
-    public void issueIsEditable() throws InterruptedException {
+    public void issueIsEditable() {
         testIssueEdit.openEditScreen();
         editIssueScreen.editSummaryField("MTP_TEST_ISSUE_AFTER_EDIT");
         assertEquals("MTP_TEST_ISSUE_AFTER_EDIT", testIssueEdit.getSummary("MTP_TEST_ISSUE_AFTER_EDIT"));
         testIssueEdit.clickEditButton();
         editIssueScreen.editSummaryField("MTP_TEST_ISSUE_BEFORE_EDIT");
-
+        assertEquals("MTP_TEST_ISSUE_BEFORE_EDIT", testIssueEdit.getSummary("MTP_TEST_ISSUE_BEFORE_EDIT"));
     }
 
     @Test
@@ -52,6 +54,7 @@ public class EditIssueCases {
         testIssueEdit.openEditScreen();
         editIssueScreen.changeSummaryToEmptyAndClickUpdate();
         assertTrue(editIssueScreen.errorMessageIsShown());
+        editIssueScreen.cancelPopUp();
     }
 
     @Test
