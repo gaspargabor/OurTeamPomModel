@@ -43,7 +43,7 @@ class PermissionsCase {
         Map<String, String> permissions = new HashMap<>();
         Navigator navigator = new Navigator(driver);
     
-        new Login(driver).login(System.getenv("name"), System.getenv("pass"));
+        new Login(driver).simpleLogin(System.getenv("name"), System.getenv("pass"));
         
         navigator.navigateTo(ProjectSettingsPage.URL);
         

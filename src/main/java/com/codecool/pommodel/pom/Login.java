@@ -44,10 +44,7 @@ public class Login {
     }
 
     public void simpleLogin(String name, String pass) {
-        navigateToLogin();
-        setUserName(name);
-        setUserPass(pass);
-        sendCredentials();
+     loginForLoginTests(name, pass);
         wait.until(ExpectedConditions.attributeToBe(By.xpath("//meta[@name='ajs-remote-user']"), "content", System.getenv("name")));
     }
 

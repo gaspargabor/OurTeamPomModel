@@ -31,13 +31,12 @@ public class ProjectsPage {
         PageFactory.initElements(driver, this);
     }
 
-<<<<<<< HEAD
     public void navigateToProjectsPage() {
         driver.navigate().to(URL);
-=======
+    }
+
     public void navigateToProjectsPage(String url) {
         driver.navigate().to(url);
->>>>>>> 0fdcbf1655c119ddd7b498b443eb4f14b5a2b184
     }
 
     public void clickMTP() {
