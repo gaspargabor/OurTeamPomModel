@@ -1,7 +1,5 @@
 import com.codecool.pommodel.pom.CreateScreen;
 import com.codecool.pommodel.pom.Login;
-import com.codecool.pommodel.pom.MainPage;
-import com.codecool.pommodel.pom.UserProfile;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -42,7 +40,7 @@ class BrowseIssue {
     void first() throws InterruptedException {
         String testText = "testing creating issue";
         
-        new Login(driver).login(System.getenv("name"), System.getenv("pass"));
+        new Login(driver).simpleLogin(System.getenv("name"), System.getenv("pass"));
         CreateScreen createScreen = new CreateScreen(driver);
         
         createScreen.createIssueFromEditorScreen(testText);

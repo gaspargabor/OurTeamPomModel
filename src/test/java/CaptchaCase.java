@@ -28,14 +28,14 @@ public class CaptchaCase {
     @Test
     public void captchaIsShown() {
         Login login = new Login(driver);
-        login.login(System.getenv("name"), System.getenv("pass"));
+        login.simpleLogin(System.getenv("name"), System.getenv("pass"));
         MainPage mainPage = new MainPage(driver);
         mainPage.logOut();
-        login.login(System.getenv("name"), "TestPassword123");
+        login.simpleLogin(System.getenv("name"), "TestPassword123");
         login.errorMessage();
-        login.login(System.getenv("name"), "TestPassword123");
+        login.simpleLogin(System.getenv("name"), "TestPassword123");
         login.errorMessage();
-        login.login(System.getenv("name"), "TestPassword123");
+        login.simpleLogin(System.getenv("name"), "TestPassword123");
         assertTrue(login.captcha());
     }
 

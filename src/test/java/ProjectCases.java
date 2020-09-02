@@ -1,14 +1,11 @@
 import com.codecool.pommodel.pom.Login;
 import com.codecool.pommodel.pom.ProjectsPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ProjectCases {
 
@@ -23,7 +20,7 @@ public class ProjectCases {
         driver.manage().window().maximize();
 
         Login login = new Login(driver);
-        login.login(System.getenv("name"), System.getenv("pass"));
+        login.simpleLogin(System.getenv("name"), System.getenv("pass"));
     }
 
     @Test

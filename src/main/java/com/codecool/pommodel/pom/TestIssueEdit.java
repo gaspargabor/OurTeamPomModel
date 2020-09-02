@@ -27,7 +27,6 @@ public class TestIssueEdit {
     }
 
     private void navigateToPage(){
-        wait.until(ExpectedConditions.attributeToBe(By.xpath("//meta[@name='ajs-remote-user']"), "content", System.getenv("name")));
         driver.navigate().to("https://jira.codecool.codecanvas.hu/browse/MTP-1523");
     }
 
@@ -41,7 +40,11 @@ public class TestIssueEdit {
         clickEditButton();
     };
 
-    public String getSummary(){
+    public String getSummary() throws InterruptedException {
+        wait.until(ExpectedConditions.visibilityOf(summary));
+        while (!summary.getText().equals("MTP_TEST_ISSUE_AFTER_EDIT")){
+            driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
+        }
         driver.navigate().to("https://jira.codecool.codecanvas.hu/browse/MTP-1523");
         wait.until(ExpectedConditions.visibilityOf(summary));
         return summary.getText();

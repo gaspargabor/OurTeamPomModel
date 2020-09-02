@@ -1,5 +1,6 @@
 package com.codecool.pommodel.pom;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -36,7 +37,7 @@ public class EditIssueScreen {
     }
 
     private void clickUpdateBtn() {
-        updateBtn.click();
+        summaryField.sendKeys(Keys.ENTER);
     }
 
 

@@ -3,7 +3,6 @@ import com.codecool.pommodel.pom.Login;
 import com.codecool.pommodel.pom.TestIssueEdit;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
@@ -24,11 +23,11 @@ public class EditIssueCases {
         driver.manage().window().maximize();
 
         Login login = new Login(driver);
-        login.login(System.getenv("name"), System.getenv("pass"));
+        login.simpleLogin(System.getenv("name"), System.getenv("pass"));
     }
 
     @Test
-    public void issueIsEditable() {
+    public void issueIsEditable() throws InterruptedException {
         TestIssueEdit testIssueEdit = new TestIssueEdit(driver);
         testIssueEdit.openEditScreen();
         EditIssueScreen editIssueScreen = new EditIssueScreen(driver);

@@ -22,6 +22,7 @@ public class UserProfile {
     WebElement metaTag;
     
     private void navigateToUserProfile() {
+        wait.until(ExpectedConditions.attributeToBe(By.xpath("//meta[@name='ajs-remote-user']"), "content", System.getenv("name")));
         driver.navigate().to("https://jira.codecool.codecanvas.hu/secure/ViewProfile.jspa");
     }
 
