@@ -7,6 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.concurrent.TimeUnit;
+
 public class TestIssueEdit {
     WebDriver driver;
     WebDriverWait wait;
@@ -41,8 +43,7 @@ public class TestIssueEdit {
         bigSummaryField.clear();
     }
 
-    private void fillSummary() throws InterruptedException {
-        Thread.sleep(2000);
+    private void fillSummary()  {
         bigSummaryField.sendKeys("MTP_TEST_ISSUE_AFTER_EDIT");
     }
 
@@ -52,7 +53,7 @@ public class TestIssueEdit {
         editBtn.click();
     }
 
-    private void pressEnter() throws InterruptedException {
+    private void pressEnter() {
         bigSummaryField.sendKeys(Keys.ENTER);
         wait.until(ExpectedConditions.visibilityOf(summary));
     }
@@ -62,7 +63,7 @@ public class TestIssueEdit {
         clickEditButton();
     }
 
-    public void inlineEdit() throws InterruptedException {
+    public void inlineEdit() {
         navigateToPage("https://jira.codecool.codecanvas.hu/browse/MTP-1523");
         wait.until(ExpectedConditions.visibilityOf(summary));
         clickPencilIcon();
@@ -79,7 +80,6 @@ public class TestIssueEdit {
     }
 
     public String getSummary(String string) {
-        wait.until(ExpectedConditions.visibilityOf(summary));
         while (!summary.getText().equals(string)) {
             driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
         }
@@ -88,37 +88,34 @@ public class TestIssueEdit {
         return summary.getText();
     }
 
-    public Boolean testEditOnYetiProject(){
+    public Boolean testEditOnYetiProject() {
         navigateToPage("https://jira.codecool.codecanvas.hu/browse/JETI-2");
         boolean present = false;
         try {
             present = editBtn.isDisplayed();
-        }
-        catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             System.out.println("Edit button is missing.");
         }
         return present;
     }
 
-    public Boolean testEditOnToucanProject(){
+    public Boolean testEditOnToucanProject() {
         navigateToPage("https://jira.codecool.codecanvas.hu/browse/TOUCAN-124");
         boolean present = false;
         try {
             present = editBtn.isDisplayed();
-        }
-        catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             System.out.println("Edit button is missing.");
         }
         return present;
     }
 
-    public Boolean testEditOnCoalaProject(){
+    public Boolean testEditOnCoalaProject() {
         navigateToPage("https://jira.codecool.codecanvas.hu/browse/COALA-2");
         boolean present = false;
         try {
             present = editBtn.isDisplayed();
-        }
-        catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             System.out.println("Edit button is missing.");
         }
         return present;
