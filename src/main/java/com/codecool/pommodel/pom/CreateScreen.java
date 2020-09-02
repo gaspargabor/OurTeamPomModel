@@ -25,6 +25,9 @@ public class CreateScreen {
     @FindBy(id = "create-issue-submit")
     WebElement createScreenSubmitBtn;
 
+    @FindBy(className = "error")
+    WebElement errorMessage;
+
     public CreateScreen(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 8);
@@ -44,7 +47,13 @@ public class CreateScreen {
     }
     
     public void openUpEditor() {
+        wait.until(ExpectedConditions.visibilityOf(createBtn));
         createBtn.click();
+    }
+
+    public String getErrorMessage() {
+        wait.until(ExpectedConditions.visibilityOf(errorMessage));
+        return errorMessage.getText();
     }
     
     public void setSummary(String issueText) {
