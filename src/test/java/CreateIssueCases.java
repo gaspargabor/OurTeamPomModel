@@ -21,7 +21,7 @@ public class CreateIssueCases {
         driver.manage().window().maximize();
 
         Login login = new Login(driver);
-        login.login(System.getenv("name"), System.getenv("pass"));
+        login.simpleLogin(System.getenv("name"), System.getenv("pass"));
     }
 
     @Test
