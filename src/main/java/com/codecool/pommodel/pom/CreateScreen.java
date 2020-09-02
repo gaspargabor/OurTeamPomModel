@@ -77,10 +77,12 @@ public class CreateScreen {
         summaryField.sendKeys(issueText);
     }
 
-    public void setIssueType() {
+    public void setIssueType(String issueType) {
         wait.until(ExpectedConditions.elementToBeClickable(issueTypeField)).click();
+        issueTypeField.sendKeys(issueType);
+        issueTypeField.sendKeys(Keys.ENTER);
     }
-    
+
     public void createIssue() {
         createScreenSubmitBtn.click();
     }
