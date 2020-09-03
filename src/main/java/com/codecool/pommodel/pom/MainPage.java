@@ -49,7 +49,7 @@ public class MainPage {
     }
     
     public void driveToSearchSite() {
-        issuesBtn.click();
+        wait.until(ExpectedConditions.elementToBeClickable(issuesBtn)).click();
         wait.until(ExpectedConditions.elementToBeClickable(searchForIssuesBtn)).click();
     }
 }
