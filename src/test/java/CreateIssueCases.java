@@ -9,7 +9,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CreateIssueCases {
+class CreateIssueCases {
     private static WebDriver driver;
 
     @BeforeAll
@@ -25,7 +25,7 @@ public class CreateIssueCases {
     }
 
     @Test
-    public void createIssueTest() {
+    void createIssueTest() {
         String testText = "Issue Creation Test";
 
         CreateScreen createScreen = new CreateScreen(driver);
@@ -34,15 +34,15 @@ public class CreateIssueCases {
         createScreen.createIssue();
 
         BrowsePage browsePage = new BrowsePage(driver);
-        String alertPopup = new MainPage(driver).assertMessage();
+        String popUpMessage = new MainPage(driver).getIdFromPopUp();
 
-        browsePage.jumpToCreatedIssue(alertPopup);
+        browsePage.jumpToCreatedIssue(popUpMessage);
         assertEquals(testText, browsePage.assertIssue());
         browsePage.cleanUp();
     }
 
     @Test
-    public void createIssueWithoutTextTest() {
+    void createIssueWithoutTextTest() {
         CreateScreen createScreen = new CreateScreen(driver);
         createScreen.openUpEditor();
         createScreen.checkForSubmitBtn();
@@ -51,7 +51,7 @@ public class CreateIssueCases {
     }
 
     @Test
-    public void createTOUCANSubTaskTest() {
+    void createTOUCANSubTaskTest() {
         ProjectsPage projectsPage = new ProjectsPage(driver);
         projectsPage.navigateToProjectsPage("https://jira.codecool.codecanvas.hu/browse/TOUCAN-571");
         CreateScreen createScreen = new CreateScreen(driver);
@@ -59,7 +59,7 @@ public class CreateIssueCases {
     }
 
     @Test
-    public void createJETISubTaskTest() {
+    void createJETISubTaskTest() {
         ProjectsPage projectsPage = new ProjectsPage(driver);
         projectsPage.navigateToProjectsPage("https://jira.codecool.codecanvas.hu/browse/JETI-393");
         CreateScreen createScreen = new CreateScreen(driver);
@@ -67,7 +67,7 @@ public class CreateIssueCases {
     }
 
     @Test
-    public void createCOALASubTaskTest() {
+    void createCOALASubTaskTest() {
         ProjectsPage projectsPage = new ProjectsPage(driver);
         projectsPage.navigateToProjectsPage("https://jira.codecool.codecanvas.hu/browse/COALA-599");
         CreateScreen createScreen = new CreateScreen(driver);
@@ -75,7 +75,7 @@ public class CreateIssueCases {
     }
 
     @Test
-    public void createIssueType() {
+    void createIssueType() {
         CreateScreen createScreen = new CreateScreen(driver);
         createScreen.openUpEditor();
         createScreen.setIssueType("Story");
@@ -83,8 +83,8 @@ public class CreateIssueCases {
         createScreen.setIssueType("Bug");
     }
 
-    //@AfterAll
-    //public static void tearDown() {
-    //    driver.quit();
-    //}
+    @AfterAll
+    static void tearDown() {
+        driver.quit();
+    }
 }

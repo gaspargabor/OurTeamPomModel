@@ -21,6 +21,12 @@ public class MainPage {
     @FindBy(id = "log_out")
     WebElement logOutBtn;
     
+    @FindBy(id = "find_link")
+    WebElement issuesBtn;
+    
+    @FindBy(id = "issues_new_search_link_lnk")
+    WebElement searchForIssuesBtn;
+    
     @FindBy(xpath = "//*[@id='aui-flag-container']//a")
     WebElement confirmPopUp;
     
@@ -36,9 +42,14 @@ public class MainPage {
         logOutBtn.click();
     }
     
-    public String assertMessage() {
+    public String getIdFromPopUp() {
         return wait
                 .until(ExpectedConditions.visibilityOf(confirmPopUp))
                 .getAttribute("data-issue-key");
+    }
+    
+    public void driveToSearchSite() {
+        wait.until(ExpectedConditions.elementToBeClickable(issuesBtn)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(searchForIssuesBtn)).click();
     }
 }
