@@ -60,6 +60,7 @@ public class BrowsePage {
     }
     
     public void orderByKeyASC(String projectName) {
+        wait.until(ExpectedConditions.visibilityOf(searchField));
         searchField.sendKeys("project =  \"" + projectName + "\" ORDER BY key ASC");
         searchField.sendKeys(Keys.ENTER);
         wait.until(ExpectedConditions.urlContains("ASC"));
