@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BrowsePage {
     
@@ -40,7 +41,7 @@ public class BrowsePage {
     
     public BrowsePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 8);
+        this.wait = new WebDriverWait(driver, 14);
         PageFactory.initElements(driver, this);
     }
     
@@ -59,13 +60,13 @@ public class BrowsePage {
     }
     
     public void orderByKeyASC(String projectName) {
+        wait.until(ExpectedConditions.visibilityOf(searchField));
         searchField.sendKeys("project =  \"" + projectName + "\" ORDER BY key ASC");
         searchField.sendKeys(Keys.ENTER);
         wait.until(ExpectedConditions.urlContains("ASC"));
     }
     
-    public void getFromList() {
-        String[] cOALAStory = (String[]) listItem.toArray();
-        logger.info("list item: {}", cOALAStory.length);
+    public List<WebElement> getFromList() {
+        return listItem.parallelStream().limit(3).collect(Collectors.toList());
     }
 }

@@ -39,13 +39,14 @@ public class Login {
 
     public Login(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 8);
+        this.wait = new WebDriverWait(driver, 14);
         PageFactory.initElements(driver, this);
     }
 
     public void simpleLogin(String name, String pass) {
      loginForLoginTests(name, pass);
-        wait.until(ExpectedConditions.attributeToBe(By.xpath("//meta[@name='ajs-remote-user']"), "content", System.getenv("name")));
+        wait.until(ExpectedConditions.attributeToBe(By.xpath("//meta[@name='ajs-remote-user']"),
+                "content", System.getenv("name")));
     }
 
     public void loginForLoginTests(String name, String pass) {
