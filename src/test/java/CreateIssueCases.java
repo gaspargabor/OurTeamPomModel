@@ -83,8 +83,8 @@ public class CreateIssueCases {
         createScreen.setIssueType("Bug");
     }
 
-    @AfterAll
-    public static void tearDown() {
-        driver.quit();
-    }
+    //@AfterAll
+    //public static void tearDown() {
+    //    driver.quit();
+    //}
 }

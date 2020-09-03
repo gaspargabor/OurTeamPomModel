@@ -37,6 +37,9 @@ public class CreateScreen {
     @FindBy(id = "issuetype-field")
     WebElement issueTypeField;
 
+    @FindBy(id = "project")
+    WebElement projectID;
+
     public CreateScreen(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 8);
@@ -81,7 +84,7 @@ public class CreateScreen {
         wait.until(ExpectedConditions.elementToBeClickable(issueTypeField)).click();
         issueTypeField.sendKeys(issueType);
         issueTypeField.sendKeys(Keys.ENTER);
-        //System.out.println(issueTypeField.getAttribute("aria-controls"));
+        System.out.println(projectID.getAttribute("value"));
     }
 
     public void createIssue() {
