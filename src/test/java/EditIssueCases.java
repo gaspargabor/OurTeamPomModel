@@ -1,38 +1,30 @@
+import com.codecool.pommodel.driver.DriverFactory;
 import com.codecool.pommodel.pom.EditIssueScreen;
 import com.codecool.pommodel.pom.Login;
 import com.codecool.pommodel.pom.TestIssueEdit;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EditIssueCases {
     private static WebDriver driver;
-    private TestIssueEdit testIssueEdit = new TestIssueEdit(driver);
-    private EditIssueScreen editIssueScreen = new EditIssueScreen(driver);
+    private final TestIssueEdit testIssueEdit = new TestIssueEdit(driver);
+    private final EditIssueScreen editIssueScreen = new EditIssueScreen(driver);
 
     @BeforeAll
     public static void setUp() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("incognito");
-        driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
+        driver = DriverFactory.getDriver();
 
         Login login = new Login(driver);
-        login.simpleLogin(System.getenv("name"), System.getenv("pass"));
+        login.simpleLogin(System.getProperty("coolcanvasusername"), System.getProperty("coolcanvaspassword"));
     }
 
     @Test
-    public void issueIsEditableTest() {
+    void issueIsEditableTest() {
         testIssueEdit.openEditScreen();
         editIssueScreen.editSummaryField("MTP_TEST_ISSUE_AFTER_EDIT");
         assertEquals("MTP_TEST_ISSUE_AFTER_EDIT", testIssueEdit.getSummary("MTP_TEST_ISSUE_AFTER_EDIT"));
@@ -42,7 +34,7 @@ public class EditIssueCases {
     }
 
     @Test
-    public void issueIsCancelableTest() {
+    void issueIsCancelableTest() {
         testIssueEdit.openEditScreen();
         editIssueScreen.changeSummaryAndCancelEdit("MTP_TEST_ISSUE_AFTER_EDIT");
         assertEquals("MTP_TEST_ISSUE_BEFORE_EDIT", testIssueEdit.getSummary("MTP_TEST_ISSUE_BEFORE_EDIT"));
@@ -50,7 +42,7 @@ public class EditIssueCases {
     }
 
     @Test
-    public void issueIsNotEditableWithEmptySummaryTest() {
+    void issueIsNotEditableWithEmptySummaryTest() {
         testIssueEdit.openEditScreen();
         editIssueScreen.changeSummaryToEmptyAndClickUpdate();
         assertTrue(editIssueScreen.errorMessageIsShown());
@@ -58,17 +50,17 @@ public class EditIssueCases {
     }
 
     @Test
-    public void editIssueOnYetiTest() {
+    void editIssueOnYetiTest() {
         assertTrue(testIssueEdit.testEditOnYetiProject());
     }
 
     @Test
-    public void editIssueOnCoalaTest() {
+    void editIssueOnCoalaTest() {
         assertTrue(testIssueEdit.testEditOnCoalaProject());
     }
 
     @Test
-    public void editIssueOnToucanTest() {
+    void editIssueOnToucanTest() {
         assertTrue(testIssueEdit.testEditOnToucanProject());
     }
 

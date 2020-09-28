@@ -1,6 +1,5 @@
 package com.codecool.pommodel.pom;
 
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,8 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class EditIssueScreen {
-    WebDriver driver;
-    WebDriverWait wait;
+    final WebDriver driver;
+    final WebDriverWait wait;
 
     @FindBy(id = "summary")
     WebElement summaryField;

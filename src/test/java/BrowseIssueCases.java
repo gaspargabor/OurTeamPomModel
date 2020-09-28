@@ -1,3 +1,4 @@
+import com.codecool.pommodel.driver.DriverFactory;
 import com.codecool.pommodel.pom.BrowsePage;
 import com.codecool.pommodel.pom.CreateScreen;
 import com.codecool.pommodel.pom.Login;
@@ -5,55 +6,36 @@ import com.codecool.pommodel.pom.MainPage;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.impl.SimpleLogger;
 
 import java.util.List;
 
-import static java.lang.System.setProperty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BrowseIssueCases {
     
-    private static final Logger logger = LoggerFactory.getLogger(BrowseIssueCases.class);
-    
     private static WebDriver driver;
+    private static final String TEXT = "testing creating issue";
     
     @BeforeAll
     public static void setUp() {
-        setProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
-        
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("incognito");
-    
-        driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
-        logger.info("test started");
-    
-        logger.info("login");
-        new Login(driver).simpleLogin(System.getenv("name"), System.getenv("pass"));
+        driver = DriverFactory.getDriver();
+        new Login(driver).simpleLogin(System.getProperty("coolcanvasusername"), System.getProperty("coolcanvaspassword"));
     }
     
-    @ParameterizedTest
-    @ValueSource(strings = {"testing creating issue"})
-    void browseIssue_issueBrowsableByKeyTest(String testText) {
+    @Test
+    void browseIssue_issueBrowsableByKeyTest() {
         BrowsePage browsePage = new BrowsePage(driver);
-        String createdMessage = new CreateScreen(driver).createIssueFromEditorScreen(testText);
+        String createdMessage = new CreateScreen(driver).createIssueFromEditorScreen(TEXT);
         
         browsePage.jumpToCreatedIssue(createdMessage);
         
-        assertEquals(testText, browsePage.assertIssue());
+        assertEquals(TEXT, browsePage.assertIssue());
         
         browsePage.cleanUp();
     }

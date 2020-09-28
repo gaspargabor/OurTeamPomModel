@@ -1,35 +1,27 @@
+import com.codecool.pommodel.driver.DriverFactory;
 import com.codecool.pommodel.pom.Login;
 import com.codecool.pommodel.pom.ProjectsPage;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProjectCases {
-
+    
     private static WebDriver driver;
 
     @BeforeAll
     static void setUp() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("incognito");
-        driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
-
-        Login login = new Login(driver);
-        login.simpleLogin(System.getenv("name"), System.getenv("pass"));
+        driver = DriverFactory.getDriver();
+        new Login(driver).simpleLogin(System.getProperty("coolcanvasusername"), System.getProperty("coolcanvaspassword"));
     }
 
     @Test
     void allProjectAreBrowsableTest() {
         ProjectsPage projectsPage = new ProjectsPage(driver);
-        projectsPage.navigateToProjectsPage("https://jira.codecool.codecanvas.hu/secure/BrowseProjects.jspa?selectedCategory=all&selectedProjectType=all");
+        projectsPage.navigateToProjectsPage(ProjectsPage.SEARCH_QUERY);
         projectsPage.fillSearch("MTP");
         projectsPage.clickMTP();
         projectsPage.clickSummary();
@@ -39,21 +31,21 @@ class ProjectCases {
     @Test
     void checkCOALAProjectTest() {
         ProjectsPage projectsPage = new ProjectsPage(driver);
-        projectsPage.navigateToProjectsPage("https://jira.codecool.codecanvas.hu/projects/COALA/summary");
+        projectsPage.navigateToProjectsPage(ProjectsPage.URL + "/COALA/summary");
         assertTrue(projectsPage.checkSummary());
     }
 
     @Test
     void checkJETIProjectTest() {
         ProjectsPage projectsPage = new ProjectsPage(driver);
-        projectsPage.navigateToProjectsPage("https://jira.codecool.codecanvas.hu/projects/JETI/summary");
+        projectsPage.navigateToProjectsPage(ProjectsPage.URL + "/JETI/summary");
         assertTrue(projectsPage.checkSummary());
     }
 
     @Test
     void checkTOUCANProjectTest() {
         ProjectsPage projectsPage = new ProjectsPage(driver);
-        projectsPage.navigateToProjectsPage("https://jira.codecool.codecanvas.hu/projects/TOUCAN/summary");
+        projectsPage.navigateToProjectsPage(ProjectsPage.URL + "/TOUCAN/summary");
         assertTrue(projectsPage.checkSummary());
     }
 

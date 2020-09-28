@@ -7,19 +7,16 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class BrowsePage {
     
-    public static final String URL = "https://jira.codecool.codecanvas.hu/browse/";
-    private static final Logger logger = LoggerFactory.getLogger(BrowsePage.class);
+    public static final String URL = "https://jira.codecool.codecanvas.hu/browse";
     
-    WebDriver driver;
-    WebDriverWait wait;
+    final WebDriver driver;
+    final WebDriverWait wait;
     
     @FindBy(id = "opsbar-operations_more")
     WebElement moreBtn;

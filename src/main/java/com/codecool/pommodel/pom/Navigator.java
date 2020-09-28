@@ -1,15 +1,14 @@
 package com.codecool.pommodel.pom;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Navigator {
     
     private static final String URL = "https://jira.codecool.codecanvas.hu/";
-    WebDriver driver;
-    WebDriverWait wait;
+    final WebDriver driver;
+    final WebDriverWait wait;
     
     public Navigator(WebDriver driver) {
         this.driver = driver;

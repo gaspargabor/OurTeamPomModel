@@ -1,75 +1,61 @@
+import com.codecool.pommodel.driver.DriverFactory;
 import com.codecool.pommodel.pom.LogOut;
 import com.codecool.pommodel.pom.Login;
 import com.codecool.pommodel.pom.MainPage;
 import com.codecool.pommodel.pom.UserProfile;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.impl.SimpleLogger;
-import static java.lang.System.setProperty;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class LoginCases {
-    private static final Logger logger = LoggerFactory.getLogger(LoginCases.class);
-
+class LoginCases {
+    
     private static WebDriver driver;
-    private Login login = new Login(driver);
-
+    private static Login login;
+    
     @BeforeAll
     public static void setUp() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("incognito");
-
-        driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
-
-        setProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
-
-        logger.info("test started");
+        driver = DriverFactory.getDriver();
+        login = new Login(driver);
     }
-
+    
     @Test
-    public void loginWithValidCredentialsTest() {
-        login.simpleLogin(System.getenv("name"), System.getenv("pass"));
+    void loginWithValidCredentialsTest() {
+        login.simpleLogin(System.getProperty("coolcanvasusername"), System.getProperty("coolcanvaspassword"));
         UserProfile userProfile = new UserProfile(driver);
-        assertEquals(System.getenv("name"), userProfile.getUserName().trim());
+        assertEquals(System.getProperty("coolcanvasusername"), userProfile.getUserName().trim());
         MainPage mainPage = new MainPage(driver);
         mainPage.logOut();
     }
-
+    
     @Test
-    public void logOutTest() {
-        login.loginForLoginTests(System.getenv("name"), System.getenv("pass"));
+    void logOutTest() {
+        login.loginForLoginTests(System.getProperty("coolcanvasusername"), System.getProperty("coolcanvaspassword"));
         MainPage mainPage = new MainPage(driver);
         mainPage.logOut();
         LogOut logOut = new LogOut(driver);
         assertTrue(logOut.getLogOutTitle());
     }
-
+    
     @Test
-    public void loginWithInvalidUsernameTest() {
-        login.loginForLoginTests("TestUser123", System.getenv("pass"));
+    void loginWithInvalidUsernameTest() {
+        login.loginForLoginTests("TestUser123", System.getProperty("coolcanvaspassword"));
         assertTrue(login.errorMessage());
     }
-
+    
     @Test
-    public void loginWithInvalidPasswordTest() {
-        login.loginForLoginTests(System.getenv("name"), "TestPassword123");
+    void loginWithInvalidPasswordTest() {
+        login.loginForLoginTests(System.getProperty("coolcanvasusername"), "TestPassword123");
         assertTrue(login.errorMessage());
     }
-
+    
     @Test
-    public void loginWithEmptyCredentialsTest() {
+    void loginWithEmptyCredentialsTest() {
         login.loginForLoginTests("", "");
         assertTrue(login.errorMessage());
     }
-
+    
     @AfterAll
     public static void tearDown() {
         driver.quit();

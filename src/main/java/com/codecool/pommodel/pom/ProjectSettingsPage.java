@@ -8,8 +8,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProjectSettingsPage {
     public static final String URL = "plugins/servlet/project-config/PP4/permissions";
-    WebDriver driver;
-    WebDriverWait wait;
+    final WebDriver driver;
+    final WebDriverWait wait;
     
     @FindBy(xpath = "//tr[@data-permission-key='BROWSE_PROJECTS']//dd")
     WebElement browseProjectPerm;

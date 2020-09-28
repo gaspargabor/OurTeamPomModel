@@ -9,12 +9,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProjectsPage {
     
-    private static final String URL = "https://jira.codecool.codecanvas.hu/secure/BrowseProjects.jspa?selectedCategory=all&selectedProjectType=all";
-    public static final String  projectPageURL = "projects/";
+    public static final String SEARCH_QUERY = "https://jira.codecool.codecanvas.hu/secure/BrowseProjects.jspa?selectedCategory=all&selectedProjectType=all";
     
-    public static final String  ascendantOrderByKey = "/issues/filter=allopenissues&orderby=key+ASC";
-    WebDriver driver;
-    WebDriverWait wait;
+    public static final String URL = "https://jira.codecool.codecanvas.hu/projects";
+    
+    final WebDriver driver;
+    final WebDriverWait wait;
     
     @FindBy(id = "project-filter-text")
     WebElement searchField;
@@ -42,10 +42,7 @@ public class ProjectsPage {
         this.wait = new WebDriverWait(driver, 5);
         PageFactory.initElements(driver, this);
     }
-
-    public void navigateToProjectsPage() {
-        driver.navigate().to(URL);
-    }
+    
 
     public void navigateToProjectsPage(String url) {
         driver.navigate().to(url);

@@ -1,40 +1,33 @@
+import com.codecool.pommodel.driver.DriverFactory;
 import com.codecool.pommodel.pom.Login;
 import com.codecool.pommodel.pom.MainPage;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CaptchaCase {
 
     private static WebDriver driver;
-
-
+    
     @BeforeAll
     public static void setUp() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("incognito");
-        driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
+       driver = DriverFactory.getDriver();
     }
-
-
+    
     @Test
-    public void captchaIsShownTest() {
+    void captchaIsShownTest() {
         Login login = new Login(driver);
-        login.simpleLogin(System.getenv("name"), System.getenv("pass"));
+        login.simpleLogin(System.getProperty("coolcanvasusername"), System.getProperty("coolcanvaspassword"));
         MainPage mainPage = new MainPage(driver);
         mainPage.logOut();
-        login.simpleLogin(System.getenv("name"), "TestPassword123");
+        login.simpleLogin(System.getProperty("coolcanvasusername"), "TestPassword123");
         login.errorMessage();
-        login.simpleLogin(System.getenv("name"), "TestPassword123");
+        login.simpleLogin(System.getProperty("coolcanvasusername"), "TestPassword123");
         login.errorMessage();
-        login.simpleLogin(System.getenv("name"), "TestPassword123");
+        login.simpleLogin(System.getProperty("coolcanvasusername"), "TestPassword123");
         assertTrue(login.captcha());
     }
 

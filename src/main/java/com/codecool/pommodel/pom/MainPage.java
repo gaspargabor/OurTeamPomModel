@@ -6,14 +6,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 public class MainPage {
 
-    WebDriver driver;
-    WebDriverWait wait;
+    final WebDriverWait wait;
 
     @FindBy(id = "header-details-user-fullname")
     WebElement profilePictureBtn;
@@ -31,7 +28,6 @@ public class MainPage {
     WebElement confirmPopUp;
     
     public MainPage(WebDriver driver) {
-        this.driver = driver;
         this.wait = new WebDriverWait(driver, 5);
         PageFactory.initElements(driver, this);
     }

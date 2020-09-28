@@ -1,6 +1,5 @@
 package com.codecool.pommodel.pom;
 
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -10,8 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
 
 public class TestIssueEdit {
-    WebDriver driver;
-    WebDriverWait wait;
+    final WebDriver driver;
+    final WebDriverWait wait;
 
     @FindBy(id = "edit-issue")
     WebElement editBtn;
@@ -94,7 +93,7 @@ public class TestIssueEdit {
         try {
             present = editBtn.isDisplayed();
         } catch (NoSuchElementException e) {
-            System.out.println("Edit button is missing.");
+            System.err.println("Edit button is missing.");
         }
         return present;
     }
@@ -105,7 +104,7 @@ public class TestIssueEdit {
         try {
             present = editBtn.isDisplayed();
         } catch (NoSuchElementException e) {
-            System.out.println("Edit button is missing.");
+            System.err.println("Edit button is missing.");
         }
         return present;
     }
@@ -116,7 +115,7 @@ public class TestIssueEdit {
         try {
             present = editBtn.isDisplayed();
         } catch (NoSuchElementException e) {
-            System.out.println("Edit button is missing.");
+            System.err.println("Edit button is missing.");
         }
         return present;
     }

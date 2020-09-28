@@ -8,17 +8,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LogOut {
-    WebDriver driver;
-    WebDriverWait wait;
-
-    public LogOut(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, 5);
-        PageFactory.initElements(driver, this);
-    }
 
     @FindBy(className = "title")
     WebElement logOutTitle;
+
+    final WebDriverWait wait;
+    
+    public LogOut(WebDriver driver) {
+        this.wait = new WebDriverWait(driver, 5);
+        PageFactory.initElements(driver, this);
+    }
 
     public Boolean getLogOutTitle() {
         wait.until(ExpectedConditions.visibilityOf(logOutTitle));

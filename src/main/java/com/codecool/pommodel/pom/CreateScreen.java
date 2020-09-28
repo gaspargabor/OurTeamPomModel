@@ -10,8 +10,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CreateScreen {
 
-    WebDriver driver;
-    WebDriverWait wait;
+    final WebDriver driver;
+    final WebDriverWait wait;
     
     @FindBy(id = "create_link")
     WebElement createBtn;
@@ -84,7 +84,7 @@ public class CreateScreen {
         wait.until(ExpectedConditions.elementToBeClickable(issueTypeField)).click();
         issueTypeField.sendKeys(issueType);
         issueTypeField.sendKeys(Keys.ENTER);
-        System.out.println(projectID.getAttribute("value"));
+        System.err.println(projectID.getAttribute("value"));
     }
 
     public void createIssue() {

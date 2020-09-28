@@ -1,27 +1,22 @@
+import com.codecool.pommodel.driver.DriverFactory;
 import com.codecool.pommodel.pom.*;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CreateIssueCases {
     private static WebDriver driver;
-
+    
     @BeforeAll
     public static void setUp() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("incognito");
-        driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
-
+        driver = DriverFactory.getDriver();
+        
         Login login = new Login(driver);
-        login.simpleLogin(System.getenv("name"), System.getenv("pass"));
+        
+        login.simpleLogin(System.getProperty("coolcanvasusername"), System.getProperty("coolcanvaspassword"));
     }
 
     @Test
@@ -53,7 +48,7 @@ class CreateIssueCases {
     @Test
     void createTOUCANSubTaskTest() {
         ProjectsPage projectsPage = new ProjectsPage(driver);
-        projectsPage.navigateToProjectsPage("https://jira.codecool.codecanvas.hu/browse/TOUCAN-571");
+        projectsPage.navigateToProjectsPage(BrowsePage.URL + "/TOUCAN-571");
         CreateScreen createScreen = new CreateScreen(driver);
         createScreen.createSubTask();
     }
@@ -61,7 +56,7 @@ class CreateIssueCases {
     @Test
     void createJETISubTaskTest() {
         ProjectsPage projectsPage = new ProjectsPage(driver);
-        projectsPage.navigateToProjectsPage("https://jira.codecool.codecanvas.hu/browse/JETI-393");
+        projectsPage.navigateToProjectsPage(BrowsePage.URL + "/JETI-393");
         CreateScreen createScreen = new CreateScreen(driver);
         createScreen.createSubTask();
     }
@@ -69,7 +64,7 @@ class CreateIssueCases {
     @Test
     void createCOALASubTaskTest() {
         ProjectsPage projectsPage = new ProjectsPage(driver);
-        projectsPage.navigateToProjectsPage("https://jira.codecool.codecanvas.hu/browse/COALA-599");
+        projectsPage.navigateToProjectsPage(BrowsePage.URL + "/COALA-599");
         CreateScreen createScreen = new CreateScreen(driver);
         createScreen.createSubTask();
     }

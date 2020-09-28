@@ -1,6 +1,5 @@
 package com.codecool.pommodel.pom;
 
-import org.openqa.selenium.By.ByClassName;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,10 +11,8 @@ import org.slf4j.LoggerFactory;
 
 public class ProjectGlassDocu {
     
-    private static final Logger logger = LoggerFactory.getLogger(ProjectGlassDocu.class);
     public static final String URL = "projects/PP4?selectedItem=com.codecanvas.glass:glass";
-    WebDriver driver;
-    WebDriverWait wait;
+    final WebDriverWait wait;
     
     @FindBy(xpath = "//*[@id='glass-permissions-panel']//th[3]//b")
     WebElement permissionText;
@@ -30,7 +27,6 @@ public class ProjectGlassDocu {
     WebElement editIssuePermRow;
     
     public ProjectGlassDocu(WebDriver driver) {
-        this.driver = driver;
         this.wait = new WebDriverWait(driver, 5);
         PageFactory.initElements(driver, this);
     }
