@@ -39,7 +39,7 @@ class PermissionsCase {
     }
     
     @Test
-    void comparePermissions_projectSettings_glassDocumentation() {
+    void comparePermissions_projectSettings_glassDocumentationTest() {
         Map<String, String> permissions = new HashMap<>();
         Navigator navigator = new Navigator(driver);
     

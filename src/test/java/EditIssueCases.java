@@ -32,7 +32,7 @@ public class EditIssueCases {
     }
 
     @Test
-    public void issueIsEditable() {
+    public void issueIsEditableTest() {
         testIssueEdit.openEditScreen();
         editIssueScreen.editSummaryField("MTP_TEST_ISSUE_AFTER_EDIT");
         assertEquals("MTP_TEST_ISSUE_AFTER_EDIT", testIssueEdit.getSummary("MTP_TEST_ISSUE_AFTER_EDIT"));
@@ -42,7 +42,7 @@ public class EditIssueCases {
     }
 
     @Test
-    public void issueIsCancelable() {
+    public void issueIsCancelableTest() {
         testIssueEdit.openEditScreen();
         editIssueScreen.changeSummaryAndCancelEdit("MTP_TEST_ISSUE_AFTER_EDIT");
         assertEquals("MTP_TEST_ISSUE_BEFORE_EDIT", testIssueEdit.getSummary("MTP_TEST_ISSUE_BEFORE_EDIT"));
@@ -50,7 +50,7 @@ public class EditIssueCases {
     }
 
     @Test
-    public void issueIsNotEditableWithEmptySummary() {
+    public void issueIsNotEditableWithEmptySummaryTest() {
         testIssueEdit.openEditScreen();
         editIssueScreen.changeSummaryToEmptyAndClickUpdate();
         assertTrue(editIssueScreen.errorMessageIsShown());
@@ -58,17 +58,17 @@ public class EditIssueCases {
     }
 
     @Test
-    public void editIssueOnYeti() {
+    public void editIssueOnYetiTest() {
         assertTrue(testIssueEdit.testEditOnYetiProject());
     }
 
     @Test
-    public void editIssueOnCoala() {
+    public void editIssueOnCoalaTest() {
         assertTrue(testIssueEdit.testEditOnCoalaProject());
     }
 
     @Test
-    public void editIssueOnToucan() {
+    public void editIssueOnToucanTest() {
         assertTrue(testIssueEdit.testEditOnToucanProject());
     }
 

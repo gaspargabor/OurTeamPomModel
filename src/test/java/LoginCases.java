@@ -35,7 +35,7 @@ public class LoginCases {
     }
 
     @Test
-    public void loginWithValidCredentials() {
+    public void loginWithValidCredentialsTest() {
         login.simpleLogin(System.getenv("name"), System.getenv("pass"));
         UserProfile userProfile = new UserProfile(driver);
         assertEquals(System.getenv("name"), userProfile.getUserName().trim());
@@ -44,7 +44,7 @@ public class LoginCases {
     }
 
     @Test
-    public void logOut() {
+    public void logOutTest() {
         login.loginForLoginTests(System.getenv("name"), System.getenv("pass"));
         MainPage mainPage = new MainPage(driver);
         mainPage.logOut();
@@ -53,19 +53,19 @@ public class LoginCases {
     }
 
     @Test
-    public void loginWithInvalidUsername() {
+    public void loginWithInvalidUsernameTest() {
         login.loginForLoginTests("TestUser123", System.getenv("pass"));
         assertTrue(login.errorMessage());
     }
 
     @Test
-    public void loginWithInvalidPassword() {
+    public void loginWithInvalidPasswordTest() {
         login.loginForLoginTests(System.getenv("name"), "TestPassword123");
         assertTrue(login.errorMessage());
     }
 
     @Test
-    public void loginWithEmptyCredentials() {
+    public void loginWithEmptyCredentialsTest() {
         login.loginForLoginTests("", "");
         assertTrue(login.errorMessage());
     }

@@ -27,7 +27,7 @@ class ProjectCases {
     }
 
     @Test
-    void allProjectAreBrowsable() {
+    void allProjectAreBrowsableTest() {
         ProjectsPage projectsPage = new ProjectsPage(driver);
         projectsPage.navigateToProjectsPage("https://jira.codecool.codecanvas.hu/secure/BrowseProjects.jspa?selectedCategory=all&selectedProjectType=all");
         projectsPage.fillSearch("MTP");
@@ -37,21 +37,21 @@ class ProjectCases {
     }
 
     @Test
-    void checkCOALAProject() {
+    void checkCOALAProjectTest() {
         ProjectsPage projectsPage = new ProjectsPage(driver);
         projectsPage.navigateToProjectsPage("https://jira.codecool.codecanvas.hu/projects/COALA/summary");
         assertTrue(projectsPage.checkSummary());
     }
 
     @Test
-    void checkJETIProject() {
+    void checkJETIProjectTest() {
         ProjectsPage projectsPage = new ProjectsPage(driver);
         projectsPage.navigateToProjectsPage("https://jira.codecool.codecanvas.hu/projects/JETI/summary");
         assertTrue(projectsPage.checkSummary());
     }
 
     @Test
-    void checkTOUCANProject() {
+    void checkTOUCANProjectTest() {
         ProjectsPage projectsPage = new ProjectsPage(driver);
         projectsPage.navigateToProjectsPage("https://jira.codecool.codecanvas.hu/projects/TOUCAN/summary");
         assertTrue(projectsPage.checkSummary());

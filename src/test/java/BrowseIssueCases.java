@@ -47,7 +47,7 @@ class BrowseIssueCases {
     
     @ParameterizedTest
     @ValueSource(strings = {"testing creating issue"})
-    void browseIssue_issueBrowsableByKey(String testText) {
+    void browseIssue_issueBrowsableByKeyTest(String testText) {
         BrowsePage browsePage = new BrowsePage(driver);
         String createdMessage = new CreateScreen(driver).createIssueFromEditorScreen(testText);
         
@@ -60,7 +60,7 @@ class BrowseIssueCases {
     
     @ParameterizedTest
     @ValueSource(strings = {"COALA", "JETI", "TOUCAN"})
-    void browseIssue_withID_oneTwoThree(String projectName) {
+    void browseIssue_withID_oneTwoThreeTest(String projectName) {
         new MainPage(driver).driveToSearchSite();
         BrowsePage browsePage = new BrowsePage(driver);
         

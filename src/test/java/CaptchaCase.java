@@ -25,7 +25,7 @@ public class CaptchaCase {
 
 
     @Test
-    public void captchaIsShown() {
+    public void captchaIsShownTest() {
         Login login = new Login(driver);
         login.simpleLogin(System.getenv("name"), System.getenv("pass"));
         MainPage mainPage = new MainPage(driver);

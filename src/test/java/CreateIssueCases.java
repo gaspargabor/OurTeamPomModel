@@ -75,7 +75,7 @@ class CreateIssueCases {
     }
 
     @Test
-    void createIssueType() {
+    void createIssueTypeTest() {
         CreateScreen createScreen = new CreateScreen(driver);
         createScreen.openUpEditor();
         createScreen.setIssueType("Story");
