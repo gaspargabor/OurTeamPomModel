@@ -7,6 +7,7 @@ pipeline {
                sh 'mvn -Dcoolcanvasusername=user3 -Dcoolcanvaspassword=CoolCanvas19. -Dtest=*Cases test'
             }
         }
+        }
         post {
             always {
                junit 'target/surefire-reports/**/*.xml'
