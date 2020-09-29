@@ -11,7 +11,6 @@ pipeline {
             steps {
                 echo 'testing'
                 sh 'mvn -Dcoolcanvasusername=user3 -Dcoolcanvaspassword=CoolCanvas19. -Dtest=*Cases test'
-                }
             }
         }
         post {
