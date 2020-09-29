@@ -12,7 +12,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class PermissionsCase {
+class PermissionsCases {
     
     private static WebDriver driver;
     
