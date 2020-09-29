@@ -15,7 +15,7 @@ pipeline {
                 sh 'mvn -Dcoolcanvasusername=user3 -Dcoolcanvaspassword=CoolCanvas19. -Dtest=*Cases test'
                 }
             }
-        }
+
         post {
             always {
                 archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
